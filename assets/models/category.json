@@ -1,0 +1,14 @@
+{
+  "icon": "https://w.wallhaven.cc/full/72/wallhaven-72q1ly.jpg",
+  "id": "0",
+  "title": "数码产品",
+  "parentId": "0",
+  "subCategories": [
+    {
+      "icon": "https://w.wallhaven.cc/full/72/wallhaven-72q1ly.jpg",
+      "id": "2323a",
+      "title": "手机",
+      "parentId": "0"
+    }
+  ]
+}
