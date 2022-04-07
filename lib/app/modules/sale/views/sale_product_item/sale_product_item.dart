@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:pphelper/app/modules/common/image_widget/image_widget.dart';
+import 'package:pphelper/app/modules/sale/controllers/sale_controller.dart';
 
 import '../../../../routes/app_pages.dart';
 
@@ -9,7 +11,8 @@ import '../../../../routes/app_pages.dart';
  * 挂售商品
  */
 class SaleProductItemView extends StatelessWidget {
-  const SaleProductItemView({Key? key}) : super(key: key);
+  final saleProduct;
+  const SaleProductItemView({Key? key, this.saleProduct}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -40,17 +43,32 @@ class SaleProductItemView extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text("苹果11", style: TextStyle(
+          Text("${saleProduct.productName}", style: TextStyle(
             fontWeight: FontWeight.bold,
           ),),
           Container(
-            child: Text("已完成",style: TextStyle(
-                color: Colors.black54
-            ),),
+            child: _productStatus()
           )
         ],
       ),
     );
+  }
+
+  //商品状态组件
+  Widget? _productStatus() {
+    if(saleProduct.status == 0) {
+      return Text("已下架",style: TextStyle(
+          color: Colors.red
+      ),);
+    }else if(saleProduct.status == 1) {
+      return Text("在售",style: TextStyle(
+          color: Colors.blue
+      ),);
+    }else if(saleProduct.status == 2) {
+      return Text("待审核",style: TextStyle(
+          color: Colors.yellow
+      ),);
+    }
   }
 
   //主体
@@ -66,7 +84,7 @@ class SaleProductItemView extends StatelessWidget {
             margin: EdgeInsets.all(10),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(5),
-              child: Image.asset("assets/1.0x/images/empty.png", fit: BoxFit.cover,),
+              child: ImageWidget(url: saleProduct.imageUrl[0],)
             ),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5),
@@ -79,8 +97,7 @@ class SaleProductItemView extends StatelessWidget {
             decoration: BoxDecoration(
             ),
             child: Text(
-              "Google 的 Flutter 越来越火，截止 2021年07月25日 GitHub 标星已达 125K，Flutter 毅然是一种趋势，所以作为前端开发者，没有理由不趁早去学习。" +
-                  "如果你是 Flutter 新手或者刚入门，不妨先点个关注，后续我会将 Flutter 中的常用组件（含有源码分析、组件的用法及注意事项）以及可能遇到的问题写到 CSDN 博客中，希望自己学习的同时，也可以帮助更多的人。",
+              "${saleProduct.productDesc}",
               maxLines: 3,
               overflow: TextOverflow.ellipsis,
             ),
@@ -93,11 +110,11 @@ class SaleProductItemView extends StatelessWidget {
             child: Column(
               children: [
                 //金额
-                Text("${"￥100.00"}", style: TextStyle(
+                Text("￥${saleProduct.productPrice}", style: TextStyle(
                     color: Colors.red
                 ),),
                 //数量
-                Text("共1件", style: TextStyle(
+                Text("共${saleProduct.productCount}件", style: TextStyle(
                     color: Colors.grey,
                     fontWeight: FontWeight.normal
                 ),)
@@ -126,10 +143,8 @@ class SaleProductItemView extends StatelessWidget {
           Container(
             child: Row(
               children: [
-                Container(
-                  padding: EdgeInsets.only(left: 10),
-                  child: ElevatedButton(onPressed: () {}, child: Text("下架商品"),style: ElevatedButton.styleFrom(primary: Colors.red)
-                  ),),
+                _btnSoldOutShowWidget(context),
+                _btnSoldUpShowWidget(context),
                 Container(
                   padding: EdgeInsets.only(left: 10),
                   child: ElevatedButton(onPressed: () {}, child: Text("修改商品"),),
@@ -140,5 +155,91 @@ class SaleProductItemView extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  //下架商品按键的显示
+  Widget _btnSoldOutShowWidget(context) {
+    if(saleProduct.status == 1) {
+      return Container(
+        padding: EdgeInsets.only(left: 10),
+        child: ElevatedButton(onPressed: () {
+          _handleSoldOut(context);
+        }, child: Text("下架商品"),style: ElevatedButton.styleFrom(primary: Colors.red)
+      ));
+    }else{
+      return Container(
+
+      );
+    }
+  }
+
+  //上架商品按键的显示
+  Widget _btnSoldUpShowWidget(context) {
+    if(saleProduct.status == 0) {
+      return Container(
+        padding: EdgeInsets.only(left: 10),
+        child: ElevatedButton(onPressed: () {
+          _handleSoldUp(context);
+        }, child: Text("上架商品"),style: ElevatedButton.styleFrom(primary: Colors.blue)
+        ));
+    }else{
+      return Container(
+
+      );
+    }
+  }
+
+  //下架商品操作
+  _handleSoldOut(context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text("下架商品"),
+          content: Row(
+            children: [
+              Text("确定下架"),
+              Text("${saleProduct.productName}", style: TextStyle(color: Colors.red),),
+              Text("这件商品？"),
+            ],
+          ),
+          actions: <Widget>[
+            ElevatedButton(child: Text('取消'),onPressed: (){
+              Navigator.of(context).pop();
+            }, style: ElevatedButton.styleFrom(primary: Colors.red),),
+            ElevatedButton(child: Text('确认'),onPressed: () async{
+              await Get.find<SaleController>().soldOutProduct(saleProduct.id);
+              Navigator.of(context).pop();
+            },),
+          ],
+        );
+    });
+  }
+
+  //上架商品操作
+  _handleSoldUp(context) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text("上架商品"),
+            content: Row(
+              children: [
+                Text("确定上架"),
+                Text("${saleProduct.productName}", style: TextStyle(color: Colors.red),),
+                Text("这件商品？"),
+              ],
+            ),
+            actions: <Widget>[
+              ElevatedButton(child: Text('取消'),onPressed: (){
+                Navigator.of(context).pop();
+              }, style: ElevatedButton.styleFrom(primary: Colors.red),),
+              ElevatedButton(child: Text('确认'),onPressed: () async{
+                await Get.find<SaleController>().soldUpProduct(saleProduct.id);
+                Navigator.of(context).pop();
+              },),
+            ],
+          );
+        });
   }
 }
