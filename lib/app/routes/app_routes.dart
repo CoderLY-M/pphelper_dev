@@ -21,6 +21,8 @@ abstract class Routes {
   static const NEW_STOCK = _Paths.NEW_STOCK;
   static const CATEGORY_SELECT = _Paths.CATEGORY_SELECT;
   static const IMAGE_PICKER = _Paths.IMAGE_PICKER;
+  static const CHART = _Paths.CHART;
+  static const SELLER = _Paths.SELLER;
 }
 
 abstract class _Paths {
@@ -41,4 +43,6 @@ abstract class _Paths {
   static const NEW_STOCK = '/new-stock';
   static const CATEGORY_SELECT = '/category_select';
   static const IMAGE_PICKER = '/image-picker';
+  static const CHART = '/chart';
+  static const SELLER = '/seller';
 }

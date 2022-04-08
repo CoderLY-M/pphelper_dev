@@ -33,7 +33,7 @@ class LoginController extends GetxController {
           textColor: Colors.white,
           fontSize: 16.0
       );
-      Get.toNamed(Routes.HOME);
+      Get.offNamed(Routes.HOME);
       Get.find<MemberController>().initLoginMember();
     }catch(e){
       //登录失败

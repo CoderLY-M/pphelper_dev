@@ -13,6 +13,8 @@ class ProductDetailController extends GetxController {
   var isLoading = false; //是否在加载
   //当前商品
   var productModel;
+  //当前买家
+  var memberUser;
 
   //是否收藏
   var isCollection = false;
@@ -27,12 +29,31 @@ class ProductDetailController extends GetxController {
       var product = await ProductDetailProvider.requestGetProductById(pid);
       if(product != null) {
         productModel = product;
+        //提供id查询用户
+        await updateSaleMemberInfo(productModel.memberId);
       }
     }catch(e) {
-
     }finally{
       isLoading = false;
       update();
+    }
+  }
+
+  //获取卖家数据
+  updateSaleMemberInfo(String mid) async {
+    try{
+      var saleMemberModel = await ProductDetailProvider.requestSaleMemberById(mid);
+      memberUser = saleMemberModel;
+    }catch(e) {
+      Fluttertoast.showToast(
+          msg: "获取卖家数据失败",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0
+      );
     }
   }
 

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:pphelper/app/modules/collection/controllers/collection_controller.dart';
 import 'package:pphelper/app/modules/common/image_widget/image_widget.dart';
-import 'package:pphelper/app/modules/sale/controllers/sale_controller.dart';
-
 import '../../../../routes/app_pages.dart';
 
 /**
@@ -72,6 +72,18 @@ class CollectionItemView extends StatelessWidget {
               borderRadius: BorderRadius.circular(5),
             ),
           ),
+          //描述
+          Container(
+            height: ScreenUtil().setHeight(100),
+            width: ScreenUtil().setWidth(350),
+            decoration: BoxDecoration(
+            ),
+            child: Text(
+              "${collectionProduct.productDesc}",
+              maxLines: 3,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
           //金额
           Container(
             height: ScreenUtil().setHeight(100),
@@ -108,10 +120,21 @@ class CollectionItemView extends StatelessWidget {
           Container(
             child: Row(
               children: [
-                Container(
-                  padding: EdgeInsets.only(left: 10),
-                  child: ElevatedButton(onPressed: () {}, child: Text("修改商品"),),
-                ),
+                InkWell(
+                  onTap: () {
+                    //取消收藏
+                    canCelCollection(context);
+                  },
+                  child: Container(
+                      padding: EdgeInsets.only(left: 10),
+                      child: Row(
+                        children: [
+                          Icon(Icons.favorite, color: Colors.red,),
+                          Text("取消收藏", style: TextStyle(color: Colors.red),)
+                        ],
+                      )
+                  ),
+                )
               ],
             ),
           )
@@ -120,4 +143,53 @@ class CollectionItemView extends StatelessWidget {
     );
   }
 
+
+  //取消收藏
+  canCelCollection(context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          content: Row(
+            children: [
+              Text("确定取消收藏"),
+              Text("${collectionProduct.productName}", style: TextStyle(color: Colors.red),),
+              Text("这件商品？"),
+            ],
+          ),
+          actions: <Widget>[
+            ElevatedButton(child: Text('取消'),onPressed: (){
+              Navigator.of(context).pop();
+            }, style: ElevatedButton.styleFrom(primary: Colors.red),),
+            ElevatedButton(child: Text('确认'),onPressed: () async{
+              try{
+                //取消收藏成功
+                await Get.find<CollectionController>().removeBusProduct(collectionProduct.id);
+                Fluttertoast.showToast(
+                    msg: "移除收藏成功",
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.CENTER,
+                    timeInSecForIosWeb: 1,
+                    backgroundColor: Colors.blue,
+                    textColor: Colors.white,
+                    fontSize: 16.0
+                );
+              }catch(e) {
+                //取消收藏失败
+                Fluttertoast.showToast(
+                    msg: "移除收藏失败",
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.CENTER,
+                    timeInSecForIosWeb: 1,
+                    backgroundColor: Colors.red,
+                    textColor: Colors.white,
+                    fontSize: 16.0
+                );
+              }
+              Navigator.of(context).pop();
+            },),
+          ],
+        );
+    });
+  }
 }

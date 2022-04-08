@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:pphelper/app/modules/member/controllers/member_status_controller.dart';
 import 'package:pphelper/app/modules/new_stock/models/stock_model.dart';
 import 'package:pphelper/app/service/member_service.dart';
 
@@ -84,6 +85,7 @@ class NewStockController extends GetxController {
           textColor: Colors.white,
           fontSize: 16.0
       );
+      Get.find<MemberStatusController>().updateSaleOutProducts();
     }catch (e){
       //登录失败
       success = false;

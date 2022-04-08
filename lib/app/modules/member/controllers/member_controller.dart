@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:pphelper/app/modules/login/models/member_model.dart';
+import 'package:pphelper/app/modules/member/controllers/member_status_controller.dart';
 import 'package:pphelper/app/modules/member/providers/memer_provider.dart';
+import 'package:pphelper/app/service/collection_service.dart';
 import 'package:pphelper/app/service/member_service.dart';
+import 'package:pphelper/app/service/storage_service.dart';
 
 class MemberController extends GetxController {
   //设置是否显示
@@ -71,7 +74,7 @@ class MemberController extends GetxController {
 
   //退出登录
   logOutMember() async{
-    await Get.find<MemberService>().logoutMember().then((value){
+    await Get.find<MemberService>().logoutMember().then((value) async{
       if(value) {
         //退出登录成功
         initLoginMember();
@@ -84,6 +87,10 @@ class MemberController extends GetxController {
             textColor: Colors.white,
             fontSize: 16.0
         );
+        //清除用户数据
+        await Get.find<StorageService>().cleanBusProducts();
+        await Get.find<CollectionService>().cleanCollectionProducts();
+        Get.find<MemberStatusController>().cleanMemberStatus();
       }
     });
   }

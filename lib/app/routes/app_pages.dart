@@ -4,6 +4,8 @@ import 'package:pphelper/app/modules/bus/bindings/bus_binding.dart';
 import 'package:pphelper/app/modules/bus/views/bus_view.dart';
 import 'package:pphelper/app/modules/category/bindings/category_binding.dart';
 import 'package:pphelper/app/modules/category/views/category_view.dart';
+import 'package:pphelper/app/modules/chart/bindings/chart_binding.dart';
+import 'package:pphelper/app/modules/chart/views/chart_view.dart';
 import 'package:pphelper/app/modules/collection/bindings/collection_binding.dart';
 import 'package:pphelper/app/modules/collection/views/collection_view.dart';
 import 'package:pphelper/app/modules/home/bindings/home_binding.dart';
@@ -32,6 +34,8 @@ import 'package:pphelper/app/modules/register/bindings/register_binding.dart';
 import 'package:pphelper/app/modules/register/views/register_view.dart';
 import 'package:pphelper/app/modules/sale/bindings/sale_binding.dart';
 import 'package:pphelper/app/modules/sale/views/sale_view.dart';
+import 'package:pphelper/app/modules/seller/bindings/seller_binding.dart';
+import 'package:pphelper/app/modules/seller/views/seller_view.dart';
 
 import '../modules/member/views/member_drawer/member_person_center/member_person_center.dart';
 
@@ -127,6 +131,16 @@ class AppPages {
       name: _Paths.IMAGE_PICKER,
       page: () => ImagePickerView(),
       binding: ImagePickerBinding(),
+    ),
+    GetPage(
+      name: _Paths.CHART,
+      page: () => ChartView(),
+      binding: ChartBinding(),
+    ),
+    GetPage(
+      name: _Paths.SELLER,
+      page: () => SellerView(),
+      binding: SellerBinding(),
     ),
   ];
 }

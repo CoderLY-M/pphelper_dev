@@ -4,8 +4,6 @@ import 'package:get/get.dart';
 import 'package:pphelper/app/modules/sale/providers/sale_provider.dart';
 import 'package:pphelper/app/service/member_service.dart';
 
-import '../../product_detail/providers/product_detail_provider.dart';
-
 class SaleController extends GetxController {
   //挂售商品列表
   var saleProducts = [];

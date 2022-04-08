@@ -195,7 +195,6 @@ class SaleProductItemView extends StatelessWidget {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text("下架商品"),
           content: Row(
             children: [
               Text("确定下架"),

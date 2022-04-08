@@ -48,6 +48,7 @@ class ProductDetailModel {
   String? sortId;
   List<String>? imageUrl;
   String? id;
+  String? memberId;
   int? viewCount;
   int? productCount;
   String? productName;
@@ -59,6 +60,7 @@ class ProductDetailModel {
       this.sortId,
       this.imageUrl,
       this.id,
+      this.memberId,
       this.viewCount,
       this.productCount,
       this.productName,
@@ -70,6 +72,7 @@ class ProductDetailModel {
     sortId = json['sortId'];
     imageUrl = json['imageUrl'].cast<String>();
     id = json['id'];
+    memberId = json['memberId'];
     viewCount = json['viewCount'];
     productCount = json['productCount'];
     productName = json['productName'];
@@ -83,6 +86,7 @@ class ProductDetailModel {
     data['sortId'] = sortId;
     data['imageUrl'] = imageUrl;
     data['id'] = id;
+    data['memberId'] = memberId;
     data['viewCount'] = viewCount;
     data['productCount'] = productCount;
     data['productName'] = productName;

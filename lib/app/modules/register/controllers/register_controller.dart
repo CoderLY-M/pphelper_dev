@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:pphelper/app/modules/register/providers/register_provider.dart';
+import 'package:pphelper/app/routes/app_pages.dart';
 
 import '../../login/models/member_model.dart';
 
@@ -26,6 +27,8 @@ class RegisterController extends GetxController {
             textColor: Colors.white,
             fontSize: 16.0
         );
+        //跳转到登录页面
+        Get.offNamed(Routes.LOGIN);
       }else if(code == 201) {
         registerSuccess = false;
         Fluttertoast.showToast(
