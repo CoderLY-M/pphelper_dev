@@ -1,12 +1,53 @@
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:pphelper/app/modules/collection/models/collection_model.dart';
+import 'package:pphelper/app/service/collection_service.dart';
+
 
 class CollectionController extends GetxController {
-  //TODO: Implement CollectionController
+  //我的收藏的商品
+  List<CollectionModel> collectionProducts = [];
 
-  final count = 0.obs;
+  //从服务中心获取我的收藏数据数据
+  updateCollectionProducts() {
+    Get.find<CollectionService>().getCollectionProducts().then((collectionList){
+      collectionProducts = collectionList;
+      update();
+    });
+  }
+
+  //添加一件商品到我的收藏
+  addCollectionProduct(collectionProductModel) async {
+    try{
+      await Get.find<CollectionService>().addCollectionProduct(collectionProductModel);
+      //刷新商品数据
+      updateCollectionProducts();
+    }catch(e){
+      throw Exception(e);
+    }
+  }
+
+  //从我的收藏移除一件商品
+  removeBusProduct(var pid) async{
+    try{
+      await Get.find<CollectionService>().removeCollectionProduct(pid);
+      //刷新商品数据
+      updateCollectionProducts();
+    }catch(e){
+      throw Exception(e);
+    }
+  }
+
+  Future<bool> productIsCollection(var pid) async {
+    bool isCollection = await Get.find<CollectionService>().productIsCollectionProduct(pid);
+    return isCollection;
+  }
+
   @override
-  void onInit() {
+  void onInit() async{
     super.onInit();
+    updateCollectionProducts();
   }
 
   @override
@@ -16,5 +57,4 @@ class CollectionController extends GetxController {
 
   @override
   void onClose() {}
-  void increment() => count.value++;
 }

@@ -4,6 +4,8 @@ import 'dart:convert';
 
 import 'package:pphelper/app/modules/bus/models/bus_product_model.dart';
 
+import '../../collection/models/collection_model.dart';
+
 /**
  * 商品详细信息模型
  */
@@ -25,6 +27,17 @@ BusProductModel productDetailToBusProduct(ProductDetailModel productDetailModel)
     count: 1,
     isCheck: false,
     productPrice: productDetailModel.productPrice
+  );
+}
+
+//商品详细数据转我的收藏模型
+CollectionModel productDetailToCollection(ProductDetailModel productDetailModel) {
+  return CollectionModel(
+      id: productDetailModel.id,
+      productName: productDetailModel.productName,
+      imageUrl: productDetailModel.imageUrl![0],
+      productPrice: productDetailModel.productPrice,
+      productDesc: productDetailModel.productDesc
   );
 }
 

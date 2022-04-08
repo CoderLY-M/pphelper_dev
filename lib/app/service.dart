@@ -11,6 +11,7 @@ class PphelperService {
     print('开启服务...');
     await initStoreService();
     await initMemberService();
+    await initCollectionService();
     print('服务已启动...');
   }
 
