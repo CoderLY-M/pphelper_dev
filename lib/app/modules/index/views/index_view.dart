@@ -7,13 +7,21 @@ import 'package:pphelper/app/modules/index/views/product_list/product_list_view.
 import 'package:pphelper/app/modules/index/views/recommend/recommend_view.dart';
 import 'package:pphelper/app/modules/index/views/swiper/swiper_view.dart';
 import 'package:pphelper/app/modules/index/views/top_navigator/top_navigator_view.dart';
+import 'package:pphelper/app/modules/search/controllers/search_controller.dart';
+import 'package:pphelper/app/routes/app_pages.dart';
+import '../../search/views/search_view.dart';
 import '../controllers/index_controller.dart';
 
 class IndexView extends GetView<IndexController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text("校园二手交易平台"),centerTitle: true,),
+        appBar: AppBar(title: Text("校园二手交易平台"),centerTitle: true, actions: [
+          IconButton(onPressed: () {
+            //跳转到搜索页面
+            showSearch(context: context, delegate: SearchView());
+          }, icon: Icon(Icons.search))
+        ],),
         body: EasyRefresh(
           child: ListView(
             children: [

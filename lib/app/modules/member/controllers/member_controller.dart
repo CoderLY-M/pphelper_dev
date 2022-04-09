@@ -88,9 +88,9 @@ class MemberController extends GetxController {
             fontSize: 16.0
         );
         //清除用户数据
-        await Get.find<StorageService>().cleanBusProducts();
-        await Get.find<CollectionService>().cleanCollectionProducts();
-        Get.find<MemberStatusController>().cleanMemberStatus();
+        // await Get.find<StorageService>().cleanBusProducts();
+        // await Get.find<CollectionService>().cleanCollectionProducts();
+        // Get.find<MemberStatusController>().cleanMemberStatus();
       }
     });
   }

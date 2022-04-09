@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:pphelper/app/service/collection_service.dart';
+import 'package:pphelper/app/service/history_service.dart';
 import 'package:pphelper/app/service/member_service.dart';
 import 'package:pphelper/app/service/storage_service.dart';
 
@@ -12,6 +13,7 @@ class PphelperService {
     await initStoreService();
     await initMemberService();
     await initCollectionService();
+    await initSearchHistoryService();
     print('服务已启动...');
   }
 
@@ -34,5 +36,12 @@ class PphelperService {
     print("启动收藏服务....");
     await Get.putAsync(() async => await CollectionService());
     print("收藏服务已启动....");
+  }
+
+  //启动我的收藏服务
+  static initSearchHistoryService() async {
+    print("启动搜索历史服务....");
+    await Get.putAsync(() async => await HistoryService());
+    print("搜索历史服务已启动....");
   }
 }

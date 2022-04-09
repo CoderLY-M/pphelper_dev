@@ -34,7 +34,8 @@ class MemberService extends GetxService {
   //用户退出登录
   Future<bool> logoutMember() async{
     var sharedPreferences = await SharedPreferences.getInstance();
-    var isSuccess = await sharedPreferences.remove("memberData");
+    //清除所有数据
+    var isSuccess = await sharedPreferences.clear();
     return isSuccess;
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:pphelper/app/modules/login/models/member_model.dart';
 import 'package:pphelper/app/modules/member/controllers/member_controller.dart';
@@ -13,12 +14,13 @@ class MemberPersonCenter extends StatefulWidget {
 }
 
 class _MemberPersonCenterState extends State<MemberPersonCenter> {
-  GlobalKey formKey = new GlobalKey<FormState>();
+  GlobalKey updateMemberInfoKey = new GlobalKey<FormState>();
   late TextEditingController idController;
   late TextEditingController usernameController;
   late TextEditingController nickNameController;
   late TextEditingController pwdController;
   late TextEditingController phoneController;
+  late TextEditingController ageController;
   late TextEditingController emailController;
   late TextEditingController tokenController;
   late var sexController;
@@ -42,6 +44,7 @@ class _MemberPersonCenterState extends State<MemberPersonCenter> {
         pwdController = new TextEditingController(text: "${loginMember.password}");
         phoneController = new TextEditingController(text: "${loginMember.phone}");
         emailController = new TextEditingController(text: "${loginMember.email}");
+        ageController = new TextEditingController(text: "${loginMember.age}");
         tokenController = new TextEditingController(text: "${loginMember.token}");
       });
     }
@@ -66,8 +69,9 @@ class _MemberPersonCenterState extends State<MemberPersonCenter> {
       padding: EdgeInsets.all(30),
       child: Form(
         //设置globalKey，用于后面获取FormState
-        key: formKey,
+        key: updateMemberInfoKey,
         //开启自动校验
+        autovalidateMode: AutovalidateMode.always,
         child: Column(
           children: <Widget>[
             Container(
@@ -129,6 +133,7 @@ class _MemberPersonCenterState extends State<MemberPersonCenter> {
                   autofocus: false,
                   controller: pwdController,
                   decoration: InputDecoration(
+                      hintText: "密码",
                     prefixIcon: Icon(Icons.lock_open),
                     contentPadding: EdgeInsets.only(
                       top: 0,
@@ -148,9 +153,39 @@ class _MemberPersonCenterState extends State<MemberPersonCenter> {
             Container(
               padding: EdgeInsets.only(top: 20),
               child: TextFormField(
+                autofocus: false,
+                controller: ageController,
+                decoration: InputDecoration(
+                    hintText: "年龄",
+                    prefixIcon: Icon(Icons.access_time),
+                    contentPadding: EdgeInsets.only(
+                      top: 0,
+                      bottom: 0,
+                    ),
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide( width: 1),
+                      borderRadius: BorderRadius.circular(10),
+                    )
+                ),
+                validator: (value) {
+                  try{
+                    var parse = int.parse(value!);
+                    if(parse <= 0) {
+                      return "年龄必须为正整数";
+                    }
+                  }catch(e) {
+                    return "年龄必须为数字";
+                  }
+                },
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.only(top: 20),
+              child: TextFormField(
                   autofocus: false,
                   controller: phoneController,
                   decoration: InputDecoration(
+                      hintText: "联系方式",
                       prefixIcon: Icon(Icons.local_phone),
                       contentPadding: EdgeInsets.only(
                         top: 0,
@@ -169,6 +204,7 @@ class _MemberPersonCenterState extends State<MemberPersonCenter> {
                   autofocus: false,
                   controller: emailController,
                   decoration: InputDecoration(
+                      hintText: "邮箱",
                     prefixIcon: Icon(Icons.email),
                     contentPadding: EdgeInsets.only(
                       top: 0,
@@ -212,7 +248,7 @@ class _MemberPersonCenterState extends State<MemberPersonCenter> {
                         // 通过_formKey.currentState 获取FormState后，
                         // 调用validate()方法校验用户名密码是否合法，校验
                         // 通过后再提交数据。
-                        if ((formKey.currentState as FormState).validate()) {
+                        if ((updateMemberInfoKey.currentState as FormState).validate()) {
                           _submitFormData();
                         }
                       },
@@ -237,6 +273,7 @@ class _MemberPersonCenterState extends State<MemberPersonCenter> {
     memberModel.nickName = nickNameController.text;
     memberModel.phone = phoneController.text;
     memberModel.email = emailController.text;
+    memberModel.age = int.parse(ageController.text);
     memberModel.token = tokenController.text;
     memberModel.sex = sexController;
     memberController.updateLoginMember(memberModel);

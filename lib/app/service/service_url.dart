@@ -15,6 +15,8 @@ var servicePath = {
   "soldOut":  serviceUrl + "/product/soldOut",  //商品下架
   "soldUp":  serviceUrl + "/product/soldUp",  //商品上架
   "uploadImages":  serviceUrl + "/product/uploadImages",  //上传文件图片
+  "searchProductRecommend":  serviceUrl + "/product/searchProductRecommend",  //获取推荐商品
+  "searchProducts":  serviceUrl + "/product/searchProducts",  //获取推荐商品
   "login":  serviceUrl + "/member/login",  //通过商品id获得商品数据
   "getSaleProducts":  serviceUrl + "/member/getSaleProducts",  //通过用户mid查询挂售的商品数据
   "getSaleCounts":  serviceUrl + "/member/getSaleCounts",  //通过用户mid查询挂售的商品数量
