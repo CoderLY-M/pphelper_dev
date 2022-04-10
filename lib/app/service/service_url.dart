@@ -26,4 +26,9 @@ var servicePath = {
   "messagePage": serviceUrl + "/message",
   "cartPage": serviceUrl + "/cart",
   "member": serviceUrl + "/member",
+
+  "chartConnectCreate": serviceUrl + "/chartMaster/chartConnectCreate", //建立连接请求
+  "memberList": serviceUrl + "/chartMaster/memberList", //获取（好友）消息列表
+  "sendMessage": serviceUrl + "/chartDetail/sendMessage", //发送消息
+  "messageList": serviceUrl + "/chartDetail/messageList", //获取消息数据
 };

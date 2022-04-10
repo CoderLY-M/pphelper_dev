@@ -10,7 +10,11 @@ class HistoryService extends GetxService {
     var sharedPreferences = await SharedPreferences.getInstance();
     List<String>? historyListStr = sharedPreferences.getStringList("historyData");
     if(historyListStr != null) {
-      return historyListStr;
+      if(historyListStr.length <= 10) {
+        return historyListStr;
+      }else{
+        return historyListStr.sublist(historyListStr.length - 11, historyListStr.length - 1);
+      }
     }else{
       return [];
     }
@@ -21,8 +25,17 @@ class HistoryService extends GetxService {
     var sharedPreferences = await SharedPreferences.getInstance();
     List<String>? historyListStr = sharedPreferences.getStringList("historyData");
     if(historyListStr != null) {
-      historyListStr.add(history);
-      await sharedPreferences.setStringList("historyData", historyListStr);
+      var isHave = false;
+      historyListStr.forEach((element) {
+        if(element == history) {
+          //存在，不进行添加
+          isHave = true;
+        }
+      });
+      if(!isHave) {
+        historyListStr.add(history);
+        await sharedPreferences.setStringList("historyData", historyListStr);
+      }
     }else{
       List<String> historyList = [];
       historyList.add(history);

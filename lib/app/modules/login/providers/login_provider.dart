@@ -26,9 +26,4 @@ class LoginProvider extends GetxService {
       throw Exception("用户登录请求失败");
     }
   }
-
-  @override
-  void onInit() {
-    super.onInit();
-  }
 }

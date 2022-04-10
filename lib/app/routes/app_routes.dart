@@ -43,6 +43,6 @@ abstract class _Paths {
   static const NEW_STOCK = '/new-stock';
   static const CATEGORY_SELECT = '/category_select';
   static const IMAGE_PICKER = '/image-picker';
-  static const CHART = '/chart';
+  static const CHART = '/chart_message.json';
   static const SELLER = '/seller';
 }
