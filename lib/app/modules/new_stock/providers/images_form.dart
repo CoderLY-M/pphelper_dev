@@ -11,4 +11,5 @@ class ImagesForm {
       'files': files
     });
   }
+
 }

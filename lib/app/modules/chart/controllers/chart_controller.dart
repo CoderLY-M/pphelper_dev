@@ -24,7 +24,7 @@ class ChartController extends GetxController {
     try{
       var loginMember = await Get.find<MemberController>().loginMember;
       var memberId = loginMember.id;
-      anotherId = Get.arguments["anotherId"];
+      anotherId = Get.arguments["another"].id;
       var list = await ChartProvider.requestChartMessageList(memberId, anotherId);
       messageList = list;
     }catch(e) {
@@ -48,9 +48,22 @@ class ChartController extends GetxController {
     try{
       var loginMember = await Get.find<MemberController>().loginMember;
       var memberId = loginMember.id;
-      await ChartProvider.requestSendMessage(memberId, anotherId, message);
-      //更新
-      updateMessageList();
+      if(memberId != anotherId) {
+        //自己不能给自家发消息
+        await ChartProvider.requestSendMessage(memberId, anotherId, message);
+        //更新
+        updateMessageList();
+      }else{
+        Fluttertoast.showToast(
+            msg: "自己不能给自己发送消息~~~",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.white,
+            textColor: Colors.red,
+            fontSize: 16.0
+        );
+      }
     }catch(e) {
       Fluttertoast.showToast(
           msg: "发送消息失败~~~",

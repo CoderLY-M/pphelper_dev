@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:pphelper/app/modules/message/controllers/message_controller.dart';
 import 'package:pphelper/app/routes/app_pages.dart';
 
+import '../../../product_detail/models/sale_memeber_model.dart';
+
 class MessageChartList extends StatelessWidget {
   const MessageChartList({Key? key}) : super(key: key);
 
@@ -40,7 +42,8 @@ class ChartMemberItemView extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: (){
-        Get.toNamed(Routes.CHART, arguments: {"anotherId": item.anotherId, "nickName": item.nickName});
+        SaleMemberModel saleMemberModel = new SaleMemberModel(id: item.anotherId, nickName: item.nickName);
+        Get.toNamed(Routes.CHART, arguments: {"another": saleMemberModel});
       },
       child: Container(
         decoration: BoxDecoration(

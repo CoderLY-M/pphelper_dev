@@ -36,6 +36,11 @@ import 'package:pphelper/app/modules/sale/bindings/sale_binding.dart';
 import 'package:pphelper/app/modules/sale/views/sale_view.dart';
 import 'package:pphelper/app/modules/seller/bindings/seller_binding.dart';
 import 'package:pphelper/app/modules/seller/views/seller_view.dart';
+import 'package:pphelper/app/modules/system_info/bindings/system_info_binding.dart';
+import 'package:pphelper/app/modules/system_info/views/system_info_view.dart';
+import 'package:pphelper/app/modules/wallet/bindings/wallet_binding.dart';
+import 'package:pphelper/app/modules/wallet/views/recharge/recharge_view.dart';
+import 'package:pphelper/app/modules/wallet/views/wallet_view.dart';
 
 import '../modules/member/views/member_drawer/member_person_center/member_person_center.dart';
 
@@ -141,6 +146,21 @@ class AppPages {
       name: _Paths.SELLER,
       page: () => SellerView(),
       binding: SellerBinding(),
+    ),
+    GetPage(
+      name: _Paths.WALLET,
+      page: () => WalletView(),
+      binding: WalletBinding(),
+    ),
+    GetPage(
+      name: _Paths.RECHARGE,
+      page: () => RechargeView(),
+      binding: WalletBinding(),
+    ),
+    GetPage(
+      name: _Paths.SYSTEM_INFO,
+      page: () => SystemInfoView(),
+      binding: SystemInfoBinding(),
     ),
   ];
 }

@@ -118,6 +118,7 @@ class SearchController extends GetxController {
             textColor: Colors.red,
             fontSize: 16.0
         );
+        searchProducts = [];
       }
     }catch(e) {
       Fluttertoast.showToast(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/shims/dart_ui_real.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:pphelper/app/modules/common/image_widget/image_widget.dart';
 import 'package:pphelper/app/modules/member/controllers/member_controller.dart';
 import 'package:pphelper/app/routes/app_pages.dart';
 
@@ -78,9 +79,7 @@ class MemberTopView extends StatelessWidget {
             height: ScreenUtil().setHeight(300),
             margin: EdgeInsets.only(top: 50),
             child: ClipOval(
-              child: memberController.loginMember.avatar == "" ?
-              Image.asset("assets/1.0x/images/empty.png",fit: BoxFit.fill,) :
-              Image.network("${memberController.loginMember.avatar}",fit: BoxFit.fill,),
+              child: ImageWidget(url: memberController.loginMember.avatar,)
             ),
           ),
           Container(

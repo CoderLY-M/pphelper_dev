@@ -32,7 +32,12 @@ class MemberListView extends StatelessWidget {
                     children: [
                       Container(
                         padding: EdgeInsets.only(bottom: 10),
-                        child: Text("订单总数:"),
+                        child: Row(
+                          children: [
+                            Text("订单总数:"),
+                            Text("${controller.orderCounts}", style: TextStyle(color: Colors.red),),
+                          ],
+                        ),
                       ),
                       VerticalDivider(),
                       Container(

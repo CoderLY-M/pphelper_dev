@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:pphelper/app/modules/login/models/member_model.dart';
 import 'package:pphelper/app/modules/member/controllers/member_controller.dart';
+import 'package:pphelper/app/modules/member/controllers/avatar_image_picker_controller.dart';
+
+import '../../avatar_image_picker/avatar_image_picker.dart';
 
 
 class MemberPersonCenter extends StatefulWidget {
@@ -74,6 +76,14 @@ class _MemberPersonCenterState extends State<MemberPersonCenter> {
         autovalidateMode: AutovalidateMode.always,
         child: Column(
           children: <Widget>[
+            Container(
+              child: Column(
+                children: [
+                  AvatarImagePickerView(),
+                  Text("上传/修改头像")
+                ],
+              ),
+            ),
             Container(
               child: TextFormField(
                   keyboardType: TextInputType.number,
@@ -276,6 +286,7 @@ class _MemberPersonCenterState extends State<MemberPersonCenter> {
     memberModel.age = int.parse(ageController.text);
     memberModel.token = tokenController.text;
     memberModel.sex = sexController;
+    // Get.find<AvatarImagePickerController>().
     memberController.updateLoginMember(memberModel);
   }
 

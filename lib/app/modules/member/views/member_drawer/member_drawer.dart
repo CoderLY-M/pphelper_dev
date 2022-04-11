@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:pphelper/app/modules/common/image_widget/image_widget.dart';
 import 'package:pphelper/app/modules/member/controllers/member_controller.dart';
 import 'package:pphelper/app/routes/app_pages.dart';
 
@@ -26,14 +27,8 @@ class MemberDrawerView extends StatelessWidget {
                     accountName: Text("${loginMember.nickName}"),
                     accountEmail: Text("${loginMember.email}"),
                     onDetailsPressed: (){},
-                    currentAccountPicture: loginMember.avatar != "" ? Container(
-                      child: CircleAvatar(
-                          backgroundImage: NetworkImage("${loginMember.avatar}")
-                      ),
-                    ) : Container(
-                      child: CircleAvatar(
-                        backgroundImage: AssetImage("assets/1.0x/images/empty.png"),
-                      ),
+                    currentAccountPicture: ClipOval(
+                      child: ImageWidget(url: loginMember.avatar,),
                     ),
                     decoration: BoxDecoration(
                         image: DecorationImage(
@@ -54,24 +49,23 @@ class MemberDrawerView extends StatelessWidget {
                       trailing: Icon(Icons.chevron_right),
                     ),
                   ),
-                  ListTile(
-                    title: Text("我的钱包"),
-                    leading: CircleAvatar(
-                        child: Icon(Icons.account_balance_wallet_rounded)
+                  InkWell(
+                    onTap: () {
+                      //跳转到我的钱包
+                      Get.toNamed(Routes.WALLET);
+                    },
+                    child: ListTile(
+                      title: Text("我的钱包"),
+                      leading: CircleAvatar(
+                          child: Icon(Icons.account_balance_wallet_rounded)
+                      ),
+                      trailing: Icon(Icons.chevron_right),
                     ),
-                    trailing: Icon(Icons.chevron_right),
                   ),
                   ListTile(
-                    title: Text("安全设置"),
+                    title: Text("系统信息"),
                     leading: CircleAvatar(
-                        child: Icon(Icons.verified_user)
-                    ),
-                    trailing: Icon(Icons.chevron_right),
-                  ),
-                  ListTile(
-                    title: Text("用户空间"),
-                    leading: CircleAvatar(
-                        child: Icon(Icons.people)
+                        child: Icon(Icons.settings_rounded)
                     ),
                     trailing: Icon(Icons.chevron_right),
                   ),

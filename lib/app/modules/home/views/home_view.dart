@@ -56,7 +56,7 @@ class HomeView extends GetView<HomeController> {
                 items: bottoms,
                 onTap: (index) {
                   //用户鉴权
-                  if(index == 3) {
+                  if(index == 2 ||index == 3) {
                     MemberLimit.limitNoLoginMember().then((canPass){
                       if(canPass){
                         HomeController.to.changePageIndex(index);

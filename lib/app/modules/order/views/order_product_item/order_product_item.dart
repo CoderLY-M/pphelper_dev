@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:pphelper/app/modules/common/image_widget/image_widget.dart';
 import 'package:pphelper/app/routes/app_pages.dart';
 /**
  * 单个订单
  */
 class OrderProductItemView extends StatelessWidget {
-  const OrderProductItemView({Key? key}) : super(key: key);
+  final item;
+  const OrderProductItemView({Key? key, this.item}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -37,14 +39,10 @@ class OrderProductItemView extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text("苹果11", style: TextStyle(
+          Text("${item.productTitle}", style: TextStyle(
             fontWeight: FontWeight.bold,
           ),),
-          Container(
-            child: Text("已完成",style: TextStyle(
-              color: Colors.black54
-            ),),
-          )
+          _statuesView(),
         ],
       ),
     );
@@ -57,16 +55,21 @@ class OrderProductItemView extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           //图片
-          Container(
-            height: ScreenUtil().setHeight(100),
-            width: ScreenUtil().setWidth(180),
-            margin: EdgeInsets.all(10),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(5),
-              child: Image.asset("assets/1.0x/images/empty.png", fit: BoxFit.cover,),
-            ),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5),
+          InkWell(
+            onTap: () {
+              Get.toNamed(Routes.PRODUCT_DETAIL, arguments: {"productId": item.productId});
+            },
+            child: Container(
+              height: ScreenUtil().setHeight(100),
+              width: ScreenUtil().setWidth(180),
+              margin: EdgeInsets.only(left: 10, top: 10, bottom: 10),
+              child: ClipRRect(
+                  borderRadius: BorderRadius.circular(5),
+                  child: ImageWidget(url: item.productCover,)
+              ),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(5),
+              ),
             ),
           ),
           //描述
@@ -75,12 +78,23 @@ class OrderProductItemView extends StatelessWidget {
             width: ScreenUtil().setWidth(350),
             decoration: BoxDecoration(
             ),
-            child: Text(
-              "Google 的 Flutter 越来越火，截止 2021年07月25日 GitHub 标星已达 125K，Flutter 毅然是一种趋势，所以作为前端开发者，没有理由不趁早去学习。" +
-              "如果你是 Flutter 新手或者刚入门，不妨先点个关注，后续我会将 Flutter 中的常用组件（含有源码分析、组件的用法及注意事项）以及可能遇到的问题写到 CSDN 博客中，希望自己学习的同时，也可以帮助更多的人。",
-              maxLines: 3,
-              overflow: TextOverflow.ellipsis,
-            ),
+            child: Column(
+              children: [
+                Align(
+                    alignment: FractionalOffset.centerLeft,
+                    child: Text(
+                      "订单编号:${item.id}",
+                    )
+                ),
+                SizedBox(height: 10,),
+                Align(
+                    alignment: FractionalOffset.centerLeft,
+                    child: Text(
+                      "卖家:${item.sellerName}",
+                    )
+                ),
+              ],
+            )
           ),
           //金额
           Container(
@@ -90,11 +104,11 @@ class OrderProductItemView extends StatelessWidget {
             child: Column(
               children: [
                 //金额
-                Text("${"￥100.00"}", style: TextStyle(
+                Text("${"￥${item.totalFee}"}", style: TextStyle(
                   color: Colors.red
                 ),),
                 //数量
-                Text("共1件", style: TextStyle(
+                Text("共${item.productCount}件", style: TextStyle(
                   color: Colors.grey,
                   fontWeight: FontWeight.normal
                 ),)
@@ -116,17 +130,13 @@ class OrderProductItemView extends StatelessWidget {
           InkWell(
             onTap: () {
               //跳转到订单详情页
-              Get.toNamed(Routes.ORDER_DETAIL);
+              Get.toNamed(Routes.PRODUCT_DETAIL, arguments: {"productId": item.productId});
             },
             child: Icon(Icons.more_horiz),
           ),
           Container(
             child: Row(
               children: [
-                Container(
-                  padding: EdgeInsets.only(left: 10),
-                  child: ElevatedButton(onPressed: () {}, child: Text("删除订单"),),
-                ),
                 Container(
                   padding: EdgeInsets.only(left: 10),
                   child: ElevatedButton(onPressed: () {}, child: Text("退换/售后"),),
@@ -141,5 +151,33 @@ class OrderProductItemView extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Widget _statuesView() {
+    if(item.status == 1) {
+      return Container(
+        child: Text("已支付",style: TextStyle(
+            color: Colors.black54
+        ),),
+      );
+    }else if(item.status == 2) {
+      return Container(
+        child: Text("待发货",style: TextStyle(
+            color: Colors.black54
+        ),),
+      );
+    }else if(item.status == 3) {
+      return Container(
+        child: Text("待收货",style: TextStyle(
+            color: Colors.black54
+        ),),
+      );
+    }else{
+      return Container(
+        child: Text("待评价",style: TextStyle(
+            color: Colors.black54
+        ),),
+      );
+    }
   }
 }

@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:pphelper/app/modules/seller/controllers/seller_controller.dart';
 import 'package:pphelper/app/routes/app_pages.dart';
 
+import '../../../../utils/member_limit.dart';
+
 
 class SellInfoView extends StatelessWidget {
   const SellInfoView({Key? key}) : super(key: key);
@@ -46,7 +48,13 @@ class SellInfoView extends StatelessWidget {
                       Container(
                         child: ElevatedButton(onPressed: () {
                           //跳转到消息页面
-                          Get.toNamed(Routes.CHART, arguments: {"memberId", controller.sellData.id});
+                          MemberLimit.limitNoLoginMember().then((canPass){
+                            if(canPass){
+                              Get.toNamed(Routes.CHART, arguments: {"another": controller.sellData});
+                            }else{
+                              Get.toNamed(Routes.LOGIN);
+                            }
+                          });
                         }, child: Text("联系他")),
                         width: ScreenUtil().setWidth(250),
                       )

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:pphelper/app/modules/login/models/member_model.dart';
+import 'package:pphelper/app/modules/member/controllers/avatar_image_picker_controller.dart';
 import 'package:pphelper/app/modules/member/controllers/member_status_controller.dart';
 import 'package:pphelper/app/modules/member/providers/memer_provider.dart';
 import 'package:pphelper/app/service/collection_service.dart';
@@ -41,6 +42,14 @@ class MemberController extends GetxController {
     //更新用户数据
     try{
       isUpdating = true;
+      //更新之前先上传头像
+      var files = Get.find<AvatarImagePickerController>().files;
+      if(files != null && files.length != 0) {
+        //有需要上传的头像
+        var imageUrl = await Get.find<AvatarImagePickerController>().uploadAvatarImageFiles(files);
+        //更新模型
+        memberModel.avatar = imageUrl;
+      }
       var result = await MemberProvider.updateLoginUser(memberModel);
       await Get.find<MemberService>().loginSuccess(result!);
       updateSuccess = true;

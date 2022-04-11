@@ -23,6 +23,9 @@ abstract class Routes {
   static const IMAGE_PICKER = _Paths.IMAGE_PICKER;
   static const CHART = _Paths.CHART;
   static const SELLER = _Paths.SELLER;
+  static const WALLET = _Paths.WALLET;
+  static const RECHARGE = _Paths.RECHARGE;
+  static const SYSTEM_INFO = _Paths.SYSTEM_INFO;
 }
 
 abstract class _Paths {
@@ -45,4 +48,7 @@ abstract class _Paths {
   static const IMAGE_PICKER = '/image-picker';
   static const CHART = '/chart_message.json';
   static const SELLER = '/seller';
+  static const WALLET = '/wallet';
+  static const RECHARGE = '/recharge';
+  static const SYSTEM_INFO = '/system-info';
 }

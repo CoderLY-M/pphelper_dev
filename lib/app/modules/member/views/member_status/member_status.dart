@@ -32,7 +32,7 @@ class MemberStatusView extends StatelessWidget {
             child: Row(
               children: [
                 IconText(icon: Icons.list,text: "全部",color: Colors.blue, routeVal: 0,),
-                IconText(icon: Icons.party_mode,text: "待付款",color: Colors.blue,routeVal: 1,),
+                IconText(icon: Icons.party_mode,text: "已支付",color: Colors.blue,routeVal: 1,),
                 IconText(icon: Icons.query_builder,text: "代发货",color: Colors.blue,routeVal: 2,),
                 IconText(icon: Icons.directions_car,text: "代收货",color: Colors.blue,routeVal: 3,),
                 IconText(icon: Icons.content_paste,text: "待评价",color: Colors.blue,routeVal: 4,),

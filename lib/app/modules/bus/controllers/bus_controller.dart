@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:pphelper/app/modules/bus/models/bus_product_model.dart';
+import 'package:pphelper/app/modules/wallet/controllers/wallet_controller.dart';
 
 import '../../../service/storage_service.dart';
 
@@ -22,6 +23,19 @@ class BusController extends GetxController {
       updateBusProductsPrice();
       update();
     });
+  }
+
+  //获取勾选上的商品
+  getCheckedShops() async {
+    List<BusProductModel> checkedShop = [];
+    List<BusProductModel> shops = await Get.find<StorageService>().getBusProducts();
+    shops.forEach((element) {
+      if(element.isCheck == true) {
+        //勾选上，加入勾选上的商品
+        checkedShop.add(element);
+      }
+    });
+    return checkedShop;
   }
 
   //添加一件商品
@@ -98,9 +112,37 @@ class BusController extends GetxController {
     updateBusProducts();
   }
 
-  //移除数据
-  handleAllRemoveBusProduct(pid) async {
-
+  //处理购买请求
+  handleBuyProduct() async {
+    //获取当前余额
+    var walletMoney = Get.find<WalletController>().walletMoney;
+    if(walletMoney > totalPrice) {
+      //余额充足
+      Fluttertoast.showToast(
+          msg: "请稍后，正在生成订单中.....",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.blue,
+          fontSize: 16.0
+      );
+      //生成订单
+      List<BusProductModel> checkProducts = await getCheckedShops();
+      await Get.find<WalletController>().createOrders(checkProducts);
+      //更新余额
+      await Get.find<WalletController>().updateWalletMoney();
+    }else{
+      Fluttertoast.showToast(
+        msg: "可用余额不足",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0
+      );
+    }
   }
 
   @override

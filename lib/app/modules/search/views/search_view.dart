@@ -184,6 +184,7 @@ class SearchView extends SearchDelegate<String>{
         ),
         onTap: () {
           searchController.insertHistoryData(title);
+          Get.find<SearchController>().updateSearchProductList(title);
           showResults(context);
         },
       ),

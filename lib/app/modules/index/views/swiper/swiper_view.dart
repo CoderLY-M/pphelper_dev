@@ -1,10 +1,8 @@
+import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_swiper/flutter_swiper.dart';
-
 import 'package:get/get.dart';
 import 'package:pphelper/app/modules/common/image_widget/image_widget.dart';
-
 import '../../controllers/swiper_controller.dart';
 
 class SwiperView extends StatelessWidget{

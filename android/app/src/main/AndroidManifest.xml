@@ -3,6 +3,7 @@
     package="com.xiaoli.pphelper">
     <uses-sdk
         tools:overrideLibrary="io.flutter.plugins.webviewflutter"/>
+    
    <application
         android:label="pphelper"
         android:name="${applicationName}"

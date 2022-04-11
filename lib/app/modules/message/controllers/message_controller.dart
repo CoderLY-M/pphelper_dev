@@ -27,27 +27,9 @@ class MessageController extends GetxController {
       if(loginMember != null) {
         var chartList = await MessageProvider.requestGetMemberList(loginMember.id);
         chartMemberList = chartList;
-      }else{
-        Fluttertoast.showToast(
-            msg: "你还没有登录哦~~~",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.CENTER,
-            timeInSecForIosWeb: 1,
-            backgroundColor: Colors.white,
-            textColor: Colors.red,
-            fontSize: 16.0
-        );
       }
     }catch(e) {
-      Fluttertoast.showToast(
-          msg: "获取消息列表失败~~~",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.white,
-          textColor: Colors.red,
-          fontSize: 16.0
-      );
+      chartMemberList = [];
     }finally{
       isLoading = false;
       update();

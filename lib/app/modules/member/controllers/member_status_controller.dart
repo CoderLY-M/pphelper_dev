@@ -1,4 +1,7 @@
 import 'package:get/get.dart';
+import 'package:pphelper/app/modules/order/controllers/order_controller.dart';
+import 'package:pphelper/app/modules/order/models/order_model.dart';
+import 'package:pphelper/app/modules/order/providers/order_provider.dart';
 
 import '../../../service/collection_service.dart';
 import '../../../service/member_service.dart';
@@ -28,6 +31,17 @@ class MemberStatusController extends GetxController {
     });
   }
 
+  //更新订单的数量
+  updateOrderList() async{
+    var loginMember =await Get.find<MemberService>().getLoginMember();
+    var memberId = loginMember?.id;
+    var list = await OrderProvider.requestOrderList(memberId, 0);
+    if(list != null) {
+      orderCounts = list.length;
+    }
+    update();
+  }
+
   //更新挂售商品数量
   updateSaleOutProducts() async{
     var loginMember =await Get.find<MemberService>().getLoginMember();
@@ -46,6 +60,7 @@ class MemberStatusController extends GetxController {
     super.onInit();
     updateCollectionProducts();
     updateSaleOutProducts();
+    updateOrderList();
   }
 
   @override

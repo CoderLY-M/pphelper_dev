@@ -27,7 +27,7 @@ class IndexView extends GetView<IndexController> {
             children: [
               SwiperView(),
               TopNavigatorView(),
-              RecommendView(),
+              // RecommendView(),
               ProductListView()
               // ProductsList(productLists: this.productLists,),
             ],

@@ -113,7 +113,7 @@ class CollectionItemView extends StatelessWidget {
           InkWell(
             onTap: () {
               //跳转到挂售商品详情页
-              Get.toNamed(Routes.ORDER_DETAIL);
+              Get.toNamed(Routes.PRODUCT_DETAIL, arguments: {"productId": collectionProduct.id});
             },
             child: Icon(Icons.more_horiz),
           ),

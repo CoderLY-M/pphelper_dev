@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:pphelper/app/modules/bus/models/bus_product_model.dart';
 
+import '../../../../routes/app_pages.dart';
 import '../../controllers/bus_controller.dart';
 
 /**
@@ -28,7 +29,7 @@ class BusBottomView extends StatelessWidget {
               children: [
                 selectAllBtn(),
                 allPriceArea(totalPrice),
-                goButton(length)
+                goButton(context, length)
               ],
             ),
           );
@@ -96,7 +97,7 @@ class BusBottomView extends StatelessWidget {
   }
 
   //结算按钮
-  Widget goButton(length){
+  Widget goButton(context,length){
     return GetBuilder<BusController>(
         builder:(controller) {
           return Container(
@@ -104,7 +105,10 @@ class BusBottomView extends StatelessWidget {
             padding: EdgeInsets.only(left: 10),
             margin: EdgeInsets.all(5),
             child:InkWell(
-              onTap: (){},
+              onTap: (){
+                // Get.toNamed(Routes.ORDER_DETAIL);
+                handleBuyProduct(context);
+              },
               child: Container(
                 padding: EdgeInsets.all(10.0),
                 alignment: Alignment.center,
@@ -123,5 +127,37 @@ class BusBottomView extends StatelessWidget {
           );
         }
     );
+  }
+
+  //处理结算
+  handleBuyProduct(context) async{
+    //获取选择的商品
+    var dataProducts = await Get.find<BusController>().getCheckedShops();
+    var productsNames = [];
+    dataProducts.forEach((element) {
+      productsNames.add(element.productName);
+    });
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          content: Row(
+            children: [
+              Text("确定购买"),
+              Text("${productsNames.toString()}", style: TextStyle(color: Colors.red),),
+              Text("商品？"),
+            ],
+          ),
+          actions: <Widget>[
+            ElevatedButton(child: Text('取消'),onPressed: (){
+              Navigator.of(context).pop();
+            }, style: ElevatedButton.styleFrom(primary: Colors.red),),
+            ElevatedButton(child: Text('确认'),onPressed: () async{
+              await Get.find<BusController>().handleBuyProduct();
+              Navigator.of(context).pop();
+            },),
+          ],
+        );
+      });
   }
 }

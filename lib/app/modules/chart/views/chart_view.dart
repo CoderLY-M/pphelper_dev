@@ -13,7 +13,7 @@ class ChartView extends GetView<ChartController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('聊天记录(${Get.arguments["nickName"]})'),
+        title: Text('聊天记录(${Get.arguments["another"].nickName})'),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
