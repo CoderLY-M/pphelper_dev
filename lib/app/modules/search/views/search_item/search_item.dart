@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pphelper/app/modules/common/image_widget/image_widget.dart';
 import 'package:pphelper/app/modules/search/models/search_product_model.dart';
 /**
  * 单个订单
@@ -62,7 +63,7 @@ class SearchItemView extends StatelessWidget {
             margin: EdgeInsets.all(10),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(5),
-              child: Image.asset("assets/1.0x/images/empty.png", fit: BoxFit.cover,),
+              child: ImageWidget(url: searchProductModel.imageUrl!,)
             ),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5),
@@ -84,7 +85,7 @@ class SearchItemView extends StatelessWidget {
             child: Column(
               children: [
                 //金额
-                Text("${searchProductModel.productDesc}", style: TextStyle(
+                Text("${searchProductModel.productPrice}", style: TextStyle(
                     color: Colors.red
                 ),),
                 //数量
