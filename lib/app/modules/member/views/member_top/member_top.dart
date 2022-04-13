@@ -23,7 +23,7 @@ class MemberTopView extends StatelessWidget {
           padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: NetworkImage("https://w.wallhaven.cc/full/o3/wallhaven-o3mlvp.jpg")
+              image: AssetImage("assets/1.0x/images/header_back.png")
             )
           ),
           child: GetBuilder<MemberController>(

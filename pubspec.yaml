@@ -20,11 +20,13 @@ dependencies:
   bubble: 1.2.1
   font_awesome_flutter: 10.1.0
   card_swiper: 2.0.3
+  zefyrka: 1.1.1
   flutter: 
     sdk: flutter
 
 dev_dependencies: 
   flutter_lints: ^1.0.0
+  flutter_launcher_icons: 0.9.2
   flutter_test: 
     sdk: flutter
 
@@ -34,5 +36,11 @@ flutter:
     - assets/1.0x/images/wx.png
     - assets/1.0x/images/alipay.png
     - assets/1.0x/images/wallet.png
+    - assets/1.0x/images/header_back.png
   uses-material-design: true
+
+flutter_icons: 
+  android: launcher_icon
+  image_path: assets/icon/icon.png
+  ios: true
 

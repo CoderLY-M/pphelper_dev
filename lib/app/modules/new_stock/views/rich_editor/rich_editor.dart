@@ -1,62 +1,60 @@
-// import 'dart:convert';
-// import 'package:flutter/material.dart';
-// // import 'package:flutter_quill/flutter_quill.dart';
-// import 'package:flutter_screenutil/flutter_screenutil.dart';
-//
-// /**
-//  * 富文本编辑器
-//  */
-//
-// GlobalKey<_RichEditorState> globalKey = GlobalKey();
-//
-// class RichEditor extends StatefulWidget {
-//   const RichEditor({Key? key}) : super(key: key);
-//
-//   @override
-//   State<RichEditor> createState() => _RichEditorState();
-// }
-//
-// class _RichEditorState extends State<RichEditor> {
-//   late QuillController _controller;
-//
-//   @override
-//   void initState() {
-//     super.initState();
-//     setState(() {
-//       _controller =  QuillController.basic();
-//     });
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       child: Column(
-//         children: [
-//           Container(
-//             child: QuillToolbar.basic(controller: _controller),
-//           ),
-//           Container(
-//             margin: EdgeInsets.only(top: 10),
-//             padding: EdgeInsets.all(10),
-//             decoration: BoxDecoration(
-//               color: Colors.white
-//             ),
-//             constraints: BoxConstraints(
-//               minHeight: ScreenUtil().setHeight(300)
-//             ),
-//             child: QuillEditor.basic(
-//               controller: _controller,
-//               readOnly: false, // true for view only mode
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-//
-//   //获取富文本的值
-//   String getRickEditorData() {
-//     return jsonEncode(_controller.document.toDelta().toJson());
-//    // return json.encode(_controller.document.toDelta());
-//   }
-// }
+import 'dart:convert';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:zefyrka/zefyrka.dart';
+
+/**
+ * 富文本编辑器
+ */
+GlobalKey<_MyRichEditorState> richerKey = new GlobalKey();
+
+class MyRichEditor extends StatefulWidget {
+  const MyRichEditor({Key? key}) : super(key: key);
+
+  @override
+  _MyRichEditorState createState() => _MyRichEditorState();
+}
+
+class _MyRichEditorState extends State<MyRichEditor> {
+  late ZefyrController _controller = ZefyrController();
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      constraints: BoxConstraints(
+        minHeight: ScreenUtil().setHeight(400)
+      ),
+      decoration: BoxDecoration(
+        color: Colors.white,
+      ),
+      child: Column(
+        children: [
+          ZefyrToolbar.basic(controller: _controller,),
+          Container(
+            padding: EdgeInsets.all(5),
+            child: ZefyrEditor(
+              controller: _controller,
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  //获取输入的值
+  getRichInputValue() {
+    return _controller.document.toPlainText();
+  }
+}
+
+
+
+
+
+
+
+

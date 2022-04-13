@@ -7,7 +7,6 @@ import 'package:get/get.dart';
 import 'package:pphelper/app/modules/image_picker/controllers/image_picker_controller.dart';
 import 'package:pphelper/app/modules/new_stock/controllers/new_stock_controller.dart';
 import 'package:pphelper/app/modules/new_stock/models/stock_model.dart';
-import 'package:pphelper/app/routes/app_pages.dart';
 import 'package:pphelper/app/utils/validate_util.dart';
 
 import '../../../image_picker/views/image_picker_view.dart';
@@ -36,7 +35,7 @@ class StockDetailView extends StatelessWidget {
           Positioned(
             left: 0,
             bottom: 0,
-            child: submitWidget(),
+            child: submitWidget(context),
           )
         ],
       )
@@ -44,7 +43,7 @@ class StockDetailView extends StatelessWidget {
   }
 
   //提交按键
-  Widget submitWidget() {
+  Widget submitWidget(context) {
     return Container(
       height: ScreenUtil().setHeight(70),
       width: ScreenUtil().screenWidth,
@@ -54,7 +53,22 @@ class StockDetailView extends StatelessWidget {
           child: ElevatedButton(
             onPressed: () {
               //获取数据
-              getFormData();
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    content: Text('确定提交上架商品数据？'),
+                    actions: <Widget>[
+                      ElevatedButton(child: Text('取消'),onPressed: (){
+                        Navigator.of(context).pop();
+                      }, style: ElevatedButton.styleFrom(primary: Colors.red),),
+                      ElevatedButton(child: Text('确认'),onPressed: (){
+                        getFormData();
+                        Navigator.of(context).pop();
+                      },),
+                    ],
+                  );
+                });
             },
             child: Text("提交"),
           ),
@@ -74,7 +88,7 @@ class StockDetailView extends StatelessWidget {
     //获取图片名称
     var imageFiles = Get.find<ImagePickerController>().files;
     //获取富文本数据
-    // var rickEditorData = globalKey.currentState?.getRickEditorData();
+    var rickEditorData = richerKey.currentState?.getRichInputValue();
     //校验
     var validateProductName = ValidateUtil.validateProductName(name);
     var validatePrice = ValidateUtil.validatePrice(price);
@@ -90,7 +104,7 @@ class StockDetailView extends StatelessWidget {
       stockModel.productCount = int.parse(count);
       stockModel.productDesc = desc.trim();
       stockModel.sortId = category.toString();
-      // stockModel.productDetail = rickEditorData;
+      stockModel.productDetail = rickEditorData;
       Get.find<NewStockController>().updateStockModel(stockModel, imageFiles);
     }
   }
@@ -118,7 +132,7 @@ class StockDetailView extends StatelessWidget {
           children: [
             StockDetailCommentTitle(title: "商品基本信息",),
             StockDetailCommentBasic(labelText: "商品名称", hintText: "请输入商品名称", textEditingController: nameEditingController, onChanged: (val) {}),
-            StockDetailCommentBasic(labelText: "商品价格", hintText: "请输入商品价格", textEditingController: priceEditingController, onChanged: (val) {}, suffixText: "元",),
+            StockDetailCommentBasic(labelText: "商品价格", hintText: "请输入商品价格", textEditingController: priceEditingController, onChanged: (val) {}, suffixText: "元",textInputType: TextInputType.number,),
             StockDetailCommentBasic(labelText: "商品描述", hintText: "请输入商品描述",  textEditingController: descEditingController, onChanged: (val) {}),
             StockDetailCommentDIY(labelText: "商品数量", hintText: "请输入商品数量", suffixText: "件",  textEditingController: countEditingController, onChanged: (val) {},
               contentBuilder: (BuildContext context) {
@@ -168,9 +182,9 @@ class StockDetailView extends StatelessWidget {
             StockDetailCommentTitle(title: "商品图片",),
             ImagePickerView(),
             StockDetailCommentTitle(title: "商品细节",),
-            // RichEditor(
-            //   key: globalKey,
-            // ),
+            MyRichEditor(
+              key: richerKey,
+            ),
           ],
         ),
     );
@@ -204,6 +218,7 @@ class StockDetailCommentBasic extends StatelessWidget {
   final ValueChanged onChanged;
   final Widget? suffix;
   final String? suffixText;
+  final TextInputType? textInputType;
   const StockDetailCommentBasic({
     Key? key,
     required this.labelText,
@@ -211,7 +226,7 @@ class StockDetailCommentBasic extends StatelessWidget {
     required this.textEditingController,
     required this.onChanged,
     this.suffix,
-    this.suffixText, }) : super(key: key);
+    this.suffixText, this.textInputType, }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -230,6 +245,7 @@ class StockDetailCommentBasic extends StatelessWidget {
           Expanded(
             child: TextField(
               controller: textEditingController,
+              keyboardType: textInputType != null ? textInputType : TextInputType.text,
               decoration: InputDecoration(
                   border: InputBorder.none,
                   hintText: hintText,

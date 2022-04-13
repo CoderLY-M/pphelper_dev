@@ -63,6 +63,7 @@ class CategoryProductsController extends GetxController {
             textColor: Colors.red,
             fontSize: 16.0
         );
+        categoryProductList = [];
       }
     }finally{
       isLoading = false;

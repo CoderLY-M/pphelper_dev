@@ -46,12 +46,13 @@ class HomeProductController extends GetxController {
             textColor: Colors.red,
             fontSize: 16.0
         );
+        productList = [];
       }
     }finally{
       currentPageNum++;
       isLoading = false;
+      update();
     }
-    update();
   }
 
   //下滑更新首页商品数据

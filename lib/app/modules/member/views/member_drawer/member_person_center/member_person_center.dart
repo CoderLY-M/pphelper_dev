@@ -3,8 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:pphelper/app/modules/login/models/member_model.dart';
 import 'package:pphelper/app/modules/member/controllers/member_controller.dart';
-import 'package:pphelper/app/modules/member/controllers/avatar_image_picker_controller.dart';
-
 import '../../avatar_image_picker/avatar_image_picker.dart';
 
 
@@ -116,7 +114,7 @@ class _MemberPersonCenterState extends State<MemberPersonCenter> {
               padding: EdgeInsets.only(top: 20),
               child: TextFormField(
                   autofocus: false,
-                  keyboardType: TextInputType.number,
+                  keyboardType: TextInputType.text,
                   //键盘回车键的样式
                   textInputAction: TextInputAction.next,
                   controller: nickNameController,
@@ -164,6 +162,7 @@ class _MemberPersonCenterState extends State<MemberPersonCenter> {
               padding: EdgeInsets.only(top: 20),
               child: TextFormField(
                 autofocus: false,
+                keyboardType: TextInputType.number,
                 controller: ageController,
                 decoration: InputDecoration(
                     hintText: "年龄",
@@ -194,6 +193,7 @@ class _MemberPersonCenterState extends State<MemberPersonCenter> {
               child: TextFormField(
                   autofocus: false,
                   controller: phoneController,
+                  keyboardType: TextInputType.phone,
                   decoration: InputDecoration(
                       hintText: "联系方式",
                       prefixIcon: Icon(Icons.local_phone),
@@ -213,6 +213,7 @@ class _MemberPersonCenterState extends State<MemberPersonCenter> {
               child: TextFormField(
                   autofocus: false,
                   controller: emailController,
+                  keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
                       hintText: "邮箱",
                     prefixIcon: Icon(Icons.email),

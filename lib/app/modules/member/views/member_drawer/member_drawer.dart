@@ -33,7 +33,7 @@ class MemberDrawerView extends StatelessWidget {
                     decoration: BoxDecoration(
                         image: DecorationImage(
                           fit: BoxFit.cover,
-                          image: NetworkImage("https://w.wallhaven.cc/full/o3/wallhaven-o3mlvp.jpg", ),
+                          image: AssetImage("assets/1.0x/images/header_back.png")
                         )
                     ),
                   ),

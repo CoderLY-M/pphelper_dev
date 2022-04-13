@@ -143,7 +143,9 @@ class OrderProductItemView extends StatelessWidget {
                 ),
                 Container(
                   padding: EdgeInsets.only(left: 10),
-                  child: ElevatedButton(onPressed: () {}, child: Text("再次购买"),),
+                  child: ElevatedButton(onPressed: () {
+                    Get.toNamed(Routes.PRODUCT_DETAIL, arguments: {"productId": item.productId});
+                  }, child: Text("再次购买"),),
                 ),
               ],
             ),
