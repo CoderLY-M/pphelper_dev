@@ -62,12 +62,17 @@ class MemberDrawerView extends StatelessWidget {
                       trailing: Icon(Icons.chevron_right),
                     ),
                   ),
-                  ListTile(
-                    title: Text("系统信息"),
-                    leading: CircleAvatar(
-                        child: Icon(Icons.settings_rounded)
+                  InkWell(
+                    onTap: () {
+                      Get.toNamed(Routes.SYSTEM_INFO);
+                    },
+                    child: ListTile(
+                      title: Text("系统信息"),
+                      leading: CircleAvatar(
+                          child: Icon(Icons.settings_rounded)
+                      ),
+                      trailing: Icon(Icons.chevron_right),
                     ),
-                    trailing: Icon(Icons.chevron_right),
                   ),
                   Container(
                     padding: EdgeInsets.only(top: 20, left: 20, right: 20),

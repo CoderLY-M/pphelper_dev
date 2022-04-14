@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:pphelper/app/modules/common/image_widget/image_widget.dart';
+import 'package:pphelper/app/routes/app_pages.dart';
 import '../../controllers/swiper_controller.dart';
 
 class SwiperView extends StatelessWidget{
@@ -19,7 +20,12 @@ class SwiperView extends StatelessWidget{
           return Swiper(
             key: UniqueKey(),
             itemBuilder: (BuildContext context,int index){
-              return ImageWidget(url: swiperLists[index].imageUrl!);
+              return InkWell(
+                onTap: () {
+                  Get.toNamed(Routes.PRODUCT_DETAIL, arguments: {"productId": swiperLists[index].id});
+                },
+                child: ImageWidget(url: swiperLists[index].imageUrl!),
+              );
             },
             itemCount: swiperLists.length,
             scale: 0.7,

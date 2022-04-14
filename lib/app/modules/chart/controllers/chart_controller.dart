@@ -6,6 +6,9 @@ import 'package:get/get.dart';
 import 'package:pphelper/app/modules/chart/models/chart_message_model.dart';
 import 'package:pphelper/app/modules/chart/providers/chart_provider.dart';
 import 'package:pphelper/app/modules/member/controllers/member_controller.dart';
+import 'package:pphelper/app/modules/member/providers/memer_provider.dart';
+
+import '../../seller/providers/seller_provider.dart';
 
 class ChartController extends GetxController {
   //在加载
@@ -14,6 +17,10 @@ class ChartController extends GetxController {
   var anotherId;
   //定时器
   var timerFetch;
+  //当前用户
+  var currentMember;
+  //对方用户
+  var anotherMember;
 
   //获取消息数据
   List<ChartMessageModel> messageList = [];
@@ -23,6 +30,7 @@ class ChartController extends GetxController {
     isLoading = true;
     try{
       var loginMember = await Get.find<MemberController>().loginMember;
+      currentMember = loginMember;
       var memberId = loginMember.id;
       anotherId = Get.arguments["another"].id;
       var list = await ChartProvider.requestChartMessageList(memberId, anotherId);
@@ -79,6 +87,17 @@ class ChartController extends GetxController {
     }
   }
 
+  //获取对方用户信息
+  getAnotherMember() async {
+    try{
+      var tempData = await SellerProvider.requestSaleMemberById(Get.arguments["another"].id);
+      anotherMember = tempData;
+    }catch(e) {
+    }finally{
+      update();
+    }
+  }
+
   //定时向后台拉取消息
   fetchMessageData() {
     var timer = Timer.periodic(Duration(seconds: 5), (timer) {
@@ -92,6 +111,7 @@ class ChartController extends GetxController {
     super.onInit();
     fetchMessageData();
     updateMessageList();
+    getAnotherMember();
   }
 
   @override

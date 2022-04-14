@@ -131,6 +131,7 @@ class SellerProductItemView extends StatelessWidget {
               //描述
               Container(
                 height: ScreenUtil().setHeight(100),
+                width: ScreenUtil().setWidth(300),
                 decoration: BoxDecoration(
                 ),
                 child: Text(

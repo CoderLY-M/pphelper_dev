@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 import 'package:pphelper/app/modules/chart/controllers/chart_controller.dart';
 import 'package:pphelper/app/modules/common/image_widget/image_widget.dart';
 
+import '../../../../routes/app_pages.dart';
+
 
 class ChartList extends StatelessWidget {
   const ChartList({Key? key}) : super(key: key);
@@ -93,7 +95,11 @@ class ChatRowView extends StatelessWidget{
             ),
             SizedBox(
                 height: 40,
-                child:  ImageWidget(url: "as",)
+                child: GetBuilder<ChartController>(
+                  builder: (controller) {
+                    return ImageWidget(url: controller.currentMember.avatar,);
+                  },
+                )
             ),
           ],
         ),
@@ -105,9 +111,18 @@ class ChatRowView extends StatelessWidget{
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            SizedBox(
-                height: 40,
-                child: Image.asset("assets/1.0x/images/empty.png")
+            GetBuilder<ChartController>(
+              builder: (controller) {
+                return InkWell(
+                  onTap: () {
+                    Get.toNamed(Routes.SELLER, arguments: {"memberId": controller.anotherMember.id});
+                  },
+                  child: SizedBox(
+                      height: 40,
+                      child: ImageWidget(url: controller.anotherMember.avatar,)
+                  ),
+                );
+              },
             ),
             Bubble(
               margin: BubbleEdges.only(top: 10),
