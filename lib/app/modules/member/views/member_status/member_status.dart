@@ -11,7 +11,7 @@ class MemberStatusView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: ScreenUtil().setHeight(200),
+      height: ScreenUtil().setHeight(240),
       margin: EdgeInsets.all(10),
       padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
@@ -29,7 +29,8 @@ class MemberStatusView extends StatelessWidget {
             height: 1.0,
           ),
           Expanded(
-            child: Row(
+            child: ListView(
+              scrollDirection: Axis.horizontal,
               children: [
                 IconText(icon: Icons.list,text: "全部",color: Colors.blue, routeVal: 0,),
                 IconText(icon: Icons.party_mode,text: "已支付",color: Colors.blue,routeVal: 1,),

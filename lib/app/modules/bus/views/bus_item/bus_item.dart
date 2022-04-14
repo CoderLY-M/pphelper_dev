@@ -138,25 +138,17 @@ class BusItemView extends StatelessWidget {
   //移除商品
   Widget _removeBus() {
     return Container(
-      width: ScreenUtil().setWidth(100),
       height: ScreenUtil().setHeight(30),
       margin: EdgeInsets.only(bottom: 10),
-      child: MaterialButton(
+      child: ElevatedButton(
         onPressed: () {
           Get.find<BusController>().removeBusProduct(busModel.id);
         },
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(5)
+        style: ElevatedButton.styleFrom(
+          primary: Colors.black45
         ),
-        color: Colors.black45,
-        child: Text(
-          "移除",
-          style: TextStyle(
-              fontSize: ScreenUtil().setSp(20),
-              color: Colors.white
-          ),
-        ),
-      ),
+        child: Text("移除"),
+      )
     );
   }
 

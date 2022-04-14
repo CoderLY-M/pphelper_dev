@@ -85,7 +85,7 @@ class MemberTopView extends StatelessWidget {
           Container(
             margin: EdgeInsets.only(top: 10),
             child: Text(
-              "${memberController.loginMember.nickName}",
+              memberController.loginMember != null ?"${memberController.loginMember.nickName}" :"",
               style: TextStyle(
                 fontSize: ScreenUtil().setSp(30),
                 color: Colors.white,

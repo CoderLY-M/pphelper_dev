@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -30,14 +31,14 @@ class _ChartBottomState extends State<ChartBottom> {
   Widget build(BuildContext context) {
     return Container(
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
             child: IconButton(onPressed: () {
             } , icon: Icon(Icons.settings, color: Colors.blue,),),
           ),
           Container(
-            margin: EdgeInsets.all(10),
-            width: MediaQuery.of(context).size.width / 1.5,
+            width: MediaQuery.of(context).size.width / 1.6,
             decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(3.0)),
             constraints: BoxConstraints(minHeight: 30.0, maxHeight: 150.0),
             child: TextField(
@@ -62,6 +63,7 @@ class _ChartBottomState extends State<ChartBottom> {
             ),
           ),
           Container(
+            padding: EdgeInsets.only(right: 5),
             child: InkWell(
               onTap: () async{
                 //获取数据

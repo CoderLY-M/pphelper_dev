@@ -106,41 +106,43 @@ class SellerProductItemView extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          InkWell(
-            onTap: (){
-              Get.toNamed(Routes.PRODUCT_DETAIL, arguments: {"productId": saleProduct.id});
-              Get.find<ProductDetailController>().onInit();
-            },
-            //图片
-            child: Container(
-              height: ScreenUtil().setHeight(100),
-              width: ScreenUtil().setWidth(180),
-              margin: EdgeInsets.all(10),
-              child: ClipRRect(
-                  borderRadius: BorderRadius.circular(5),
-                  child: ImageWidget(url: saleProduct.imageUrl[0],)
+          Row(
+            children: [
+              InkWell(
+                onTap: (){
+                  Get.toNamed(Routes.PRODUCT_DETAIL, arguments: {"productId": saleProduct.id});
+                  Get.find<ProductDetailController>().onInit();
+                },
+                //图片
+                child: Container(
+                  height: ScreenUtil().setHeight(100),
+                  width: ScreenUtil().setWidth(180),
+                  margin: EdgeInsets.all(10),
+                  child: ClipRRect(
+                      borderRadius: BorderRadius.circular(5),
+                      child: ImageWidget(url: saleProduct.imageUrl[0],)
+                  ),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                ),
+              )
+              ,
+              //描述
+              Container(
+                height: ScreenUtil().setHeight(100),
+                decoration: BoxDecoration(
+                ),
+                child: Text(
+                  "${saleProduct.productDesc}",
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5),
-              ),
-            ),
-          )
-          ,
-          //描述
-          Container(
-            height: ScreenUtil().setHeight(100),
-            width: ScreenUtil().setWidth(350),
-            decoration: BoxDecoration(
-            ),
-            child: Text(
-              "${saleProduct.productDesc}",
-              maxLines: 3,
-              overflow: TextOverflow.ellipsis,
-            ),
+            ],
           ),
           //金额
           Container(
-            height: ScreenUtil().setHeight(100),
             decoration: BoxDecoration(
             ),
             child: Column(

@@ -77,30 +77,34 @@ class SaleProductItemView extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          //图片
-          Container(
-            height: ScreenUtil().setHeight(100),
-            width: ScreenUtil().setWidth(180),
-            margin: EdgeInsets.all(10),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(5),
-              child: ImageWidget(url: saleProduct.imageUrl[0],)
-            ),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5),
-            ),
-          ),
-          //描述
-          Container(
-            height: ScreenUtil().setHeight(100),
-            width: ScreenUtil().setWidth(350),
-            decoration: BoxDecoration(
-            ),
-            child: Text(
-              "${saleProduct.productDesc}",
-              maxLines: 3,
-              overflow: TextOverflow.ellipsis,
-            ),
+          Row(
+            children: [
+              //图片
+              Container(
+                height: ScreenUtil().setHeight(100),
+                width: ScreenUtil().setWidth(180),
+                margin: EdgeInsets.all(10),
+                child: ClipRRect(
+                    borderRadius: BorderRadius.circular(5),
+                    child: ImageWidget(url: saleProduct.imageUrl[0],)
+                ),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                ),
+              ),
+              //描述
+              Container(
+                height: ScreenUtil().setHeight(100),
+                width: ScreenUtil().setWidth(300),
+                decoration: BoxDecoration(
+                ),
+                child: Text(
+                  "${saleProduct.productDesc}",
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ],
           ),
           //金额
           Container(

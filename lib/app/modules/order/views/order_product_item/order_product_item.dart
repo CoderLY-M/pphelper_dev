@@ -13,7 +13,6 @@ class OrderProductItemView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: ScreenUtil().screenWidth,
       padding: EdgeInsets.all(10),
       margin: EdgeInsets.only(left: 10,right: 10, top: 10),
       // height: ScreenUtil().setHeight(200),
@@ -54,51 +53,48 @@ class OrderProductItemView extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          //图片
-          InkWell(
-            onTap: () {
-              Get.toNamed(Routes.PRODUCT_DETAIL, arguments: {"productId": item.productId});
-            },
-            child: Container(
-              height: ScreenUtil().setHeight(100),
-              width: ScreenUtil().setWidth(180),
-              margin: EdgeInsets.only(left: 10, top: 10, bottom: 10),
-              child: ClipRRect(
-                  borderRadius: BorderRadius.circular(5),
-                  child: ImageWidget(url: item.productCover,)
+          Row(
+            children: [
+              //图片
+              InkWell(
+                onTap: () {
+                  Get.toNamed(Routes.PRODUCT_DETAIL, arguments: {"productId": item.productId});
+                },
+                child: Container(
+                  height: ScreenUtil().setHeight(100),
+                  width: ScreenUtil().screenWidth / 4,
+                  margin: EdgeInsets.all(10),
+                  child: ClipRRect(
+                      borderRadius: BorderRadius.circular(5),
+                      child: ImageWidget(url: item.productCover,)
+                  ),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                ),
               ),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5),
-              ),
-            ),
-          ),
-          //描述
-          Container(
-            height: ScreenUtil().setHeight(100),
-            width: ScreenUtil().setWidth(350),
-            decoration: BoxDecoration(
-            ),
-            child: Column(
-              children: [
-                Align(
-                    alignment: FractionalOffset.centerLeft,
-                    child: Text(
+              //描述
+              Container(
+                width: ScreenUtil().setWidth(300),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
                       "订单编号:${item.id}",
-                    )
-                ),
-                SizedBox(height: 10,),
-                Align(
-                    alignment: FractionalOffset.centerLeft,
-                    child: Text(
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    SizedBox(height: 10,),
+                    Text(
                       "卖家:${item.sellerName}",
+                      overflow: TextOverflow.ellipsis,
                     )
+                  ],
                 ),
-              ],
-            )
+              )
+            ],
           ),
           //金额
           Container(
-            height: ScreenUtil().setHeight(100),
             decoration: BoxDecoration(
             ),
             child: Column(
@@ -108,9 +104,9 @@ class OrderProductItemView extends StatelessWidget {
                   color: Colors.red
                 ),),
                 //数量
-                Text("共${item.productCount}件", style: TextStyle(
+                Text("共${item.productCount}件", overflow: TextOverflow.ellipsis, style: TextStyle(
                   color: Colors.grey,
-                  fontWeight: FontWeight.normal
+                  fontWeight: FontWeight.normal,
                 ),)
               ],
             ),

@@ -59,7 +59,7 @@ class RegisterView extends GetView<RegisterController> {
             children: <Widget>[
               TextFormField(
                   autofocus: false,
-                  keyboardType: TextInputType.number,
+                  keyboardType: TextInputType.text,
                   //键盘回车键的样式
                   textInputAction: TextInputAction.next,
                   controller: unameController,
@@ -73,6 +73,7 @@ class RegisterView extends GetView<RegisterController> {
               TextFormField(
                   autofocus: false,
                   controller: pwdController,
+                  keyboardType: TextInputType.text,
                   decoration: InputDecoration(
                       labelText: "密码", icon: Icon(Icons.lock_open)),
                   obscureText: true,
@@ -83,6 +84,7 @@ class RegisterView extends GetView<RegisterController> {
               TextFormField(
                   autofocus: false,
                   controller: tpwdController,
+                  keyboardType: TextInputType.text,
                   decoration: InputDecoration(
                       labelText: "重复密码", icon: Icon(Icons.lock)),
                   obscureText: true,
@@ -93,6 +95,7 @@ class RegisterView extends GetView<RegisterController> {
               TextFormField(
                   autofocus: false,
                   controller: phoneController,
+                  keyboardType: TextInputType.phone,
                   decoration: InputDecoration(
                       labelText: "电话", icon: Icon(Icons.local_phone)),
                   obscureText: true,

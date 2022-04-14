@@ -174,21 +174,18 @@ class SearchView extends SearchDelegate<String>{
 
 
   Widget _searchItem(context, title) {
-    return Container(
-      child: InkWell(
-        child: Chip(
-          label: Text(title, style: TextStyle(color: Colors.blue),),
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10)
-          ),
+    return InkWell(
+      child: Chip(
+        label: Text(title, style: TextStyle(color: Colors.blue),),
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10)
         ),
-        onTap: () {
-          searchController.insertHistoryData(title);
-          Get.find<SearchController>().updateSearchProductList(title);
-          showResults(context);
-        },
       ),
-      color: Colors.white,
+      onTap: () {
+        searchController.insertHistoryData(title);
+        Get.find<SearchController>().updateSearchProductList(title);
+        showResults(context);
+      },
     );
   }
 }

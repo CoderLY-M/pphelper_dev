@@ -123,8 +123,8 @@ class BusController extends GetxController {
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
           timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red,
-          textColor: Colors.blue,
+          backgroundColor: Colors.blue,
+          textColor: Colors.white,
           fontSize: 16.0
       );
       //生成订单

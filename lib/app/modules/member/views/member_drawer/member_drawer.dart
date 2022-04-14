@@ -19,7 +19,7 @@ class MemberDrawerView extends StatelessWidget {
           return Container(
               color: Colors.white,
               height: ScreenUtil().screenHeight,
-              width: ScreenUtil().screenWidth - 200,
+              width: ScreenUtil().screenWidth / 1.5,
               child: ListView(
                 padding: EdgeInsets.zero,
                 children: [

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:pphelper/app/modules/common/image_widget/image_widget.dart';
 import 'package:pphelper/app/modules/search/models/search_product_model.dart';
+import 'package:pphelper/app/routes/app_pages.dart';
 /**
  * 单个订单
  */
@@ -52,51 +54,56 @@ class SearchItemView extends StatelessWidget {
 
   //主体
   Widget _orderItemBody(context) {
-    return Container(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          //图片
-          Container(
-            height: ScreenUtil().setHeight(100),
-            width: ScreenUtil().setWidth(180),
-            margin: EdgeInsets.all(10),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(5),
-              child: ImageWidget(url: searchProductModel.imageUrl!,)
+    return InkWell(
+      onTap: (){
+        Get.toNamed(Routes.PRODUCT_DETAIL, arguments: {"productId": searchProductModel.id});
+      },
+      child: Container(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            //图片
+            Container(
+              height: ScreenUtil().setHeight(100),
+              width: ScreenUtil().setWidth(180),
+              margin: EdgeInsets.all(10),
+              child: ClipRRect(
+                  borderRadius: BorderRadius.circular(5),
+                  child: ImageWidget(url: searchProductModel.imageUrl!,)
+              ),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(5),
+              ),
             ),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5),
+            //描述
+            Container(
+                height: ScreenUtil().setHeight(100),
+                width: ScreenUtil().setWidth(350),
+                decoration: BoxDecoration(
+                ),
+                child: Text("${searchProductModel.productDesc}")
             ),
-          ),
-          //描述
-          Container(
-            height: ScreenUtil().setHeight(100),
-            width: ScreenUtil().setWidth(350),
-            decoration: BoxDecoration(
-            ),
-            child: Text("${searchProductModel.productDesc}")
-          ),
-          //金额
-          Container(
-            height: ScreenUtil().setHeight(100),
-            decoration: BoxDecoration(
-            ),
-            child: Column(
-              children: [
-                //金额
-                Text("${searchProductModel.productPrice}", style: TextStyle(
-                    color: Colors.red
-                ),),
-                //数量
-                Text("共${searchProductModel.buyCount}件", style: TextStyle(
-                    color: Colors.grey,
-                    fontWeight: FontWeight.normal
-                ),)
-              ],
-            ),
-          )
-        ],
+            //金额
+            Container(
+              height: ScreenUtil().setHeight(100),
+              decoration: BoxDecoration(
+              ),
+              child: Column(
+                children: [
+                  //金额
+                  Text("${searchProductModel.productPrice}", style: TextStyle(
+                      color: Colors.red
+                  ),),
+                  //数量
+                  Text("共${searchProductModel.buyCount}件", style: TextStyle(
+                      color: Colors.grey,
+                      fontWeight: FontWeight.normal
+                  ),)
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

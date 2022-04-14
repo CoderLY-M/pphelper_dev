@@ -14,7 +14,7 @@ class ProductDetailBottomBarView extends StatelessWidget {
           var isCollection = controller.isCollection;
           return Container(
             width: ScreenUtil().screenWidth,
-            height: ScreenUtil().screenWidth / 8,
+            height: ScreenUtil().setHeight(120),
             decoration: BoxDecoration(
                 color: Colors.white,
                 boxShadow: [BoxShadow(

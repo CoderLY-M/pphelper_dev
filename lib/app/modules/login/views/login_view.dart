@@ -53,7 +53,7 @@ class LoginView extends GetView<LoginController> {
           children: <Widget>[
             TextFormField(
                 autofocus: false,
-                keyboardType: TextInputType.number,
+                keyboardType: TextInputType.text,
                 //键盘回车键的样式
                 textInputAction: TextInputAction.next,
                 controller: unameController,
@@ -66,6 +66,7 @@ class LoginView extends GetView<LoginController> {
                 }),
             TextFormField(
                 autofocus: false,
+                keyboardType: TextInputType.text,
                 controller: pwdController,
                 decoration: InputDecoration(
                     labelText: "密码", icon: Icon(Icons.lock)),

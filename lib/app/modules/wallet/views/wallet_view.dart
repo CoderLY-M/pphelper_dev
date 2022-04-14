@@ -46,8 +46,6 @@ class WalletView extends StatelessWidget {
                     ),
                     SizedBox(height: 100),
                     Container(
-                      width: ScreenUtil().setWidth(100),
-                      height: ScreenUtil().setHeight(100),
                       decoration: BoxDecoration(
                         color: Colors.yellow,
                         borderRadius: BorderRadius.circular(150),

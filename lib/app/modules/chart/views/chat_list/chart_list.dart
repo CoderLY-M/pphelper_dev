@@ -3,6 +3,7 @@ import 'package:bubble/bubble.dart';
 import 'package:bubble/issue_clipper.dart';
 import 'package:get/get.dart';
 import 'package:pphelper/app/modules/chart/controllers/chart_controller.dart';
+import 'package:pphelper/app/modules/common/image_widget/image_widget.dart';
 
 
 class ChartList extends StatelessWidget {
@@ -28,7 +29,7 @@ class ChartList extends StatelessWidget {
               itemCount: controller.messageList.length,
               itemBuilder: (context, index) {
                 var item = controller.messageList[index];
-                return ChatRowView(avatarLocalSavedPath: "assets/1.0x/images/empty.png", item: controller.messageList[index], isMyself: item.owner == 1 ? true : false,);
+                return ChatRowView(item: controller.messageList[index], isMyself: item.owner == 1 ? true : false,);
               }
             );
           }
@@ -44,11 +45,10 @@ class ChartList extends StatelessWidget {
  * 聊天单行
  */
 class ChatRowView extends StatelessWidget{
-  String avatarLocalSavedPath;
   var item;
   bool isMyself;
 
-  ChatRowView({required this.avatarLocalSavedPath,
+  ChatRowView({
     required this.item,
     required this.isMyself});
 
@@ -63,10 +63,6 @@ class ChatRowView extends StatelessWidget{
           mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Container(
-              padding: EdgeInsets.only(top: 20),
-              child: Text("${time}"),
-            ),
             Bubble(
               margin: BubbleEdges.only(top: 10),
               alignment: Alignment.topRight,
@@ -78,12 +74,26 @@ class ChatRowView extends StatelessWidget{
                   constraints: BoxConstraints(
                       maxWidth: MediaQuery.of(context).size.width/2
                   ),
-                  child: Text("${item.message}")
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text("${item.message}"),
+                      SizedBox(height: 10,),
+                      Row(
+                        children: [
+                          Icon(Icons.access_time_sharp, size: 15, color: Colors.black12,),
+                          Text("${time}", style: TextStyle(
+                              color: Colors.black12
+                          ),)
+                        ],
+                      )
+                    ],
+                  )
               ),
             ),
             SizedBox(
-                height: 50,
-                child: Image.asset(this.avatarLocalSavedPath)
+                height: 40,
+                child:  ImageWidget(url: "as",)
             ),
           ],
         ),
@@ -96,7 +106,7 @@ class ChatRowView extends StatelessWidget{
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             SizedBox(
-                height: 50,
+                height: 40,
                 child: Image.asset("assets/1.0x/images/empty.png")
             ),
             Bubble(
@@ -109,13 +119,23 @@ class ChatRowView extends StatelessWidget{
                   constraints: BoxConstraints(
                       maxWidth: MediaQuery.of(context).size.width/2
                   ),
-                  child: Text("${item.message}")
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("${item.message}"),
+                      SizedBox(height: 10,),
+                      Row(
+                        children: [
+                          Icon(Icons.access_time_sharp, size: 15, color: Colors.black12,),
+                          Text("${time}", style: TextStyle(
+                            color: Colors.black12
+                          ),)
+                        ],
+                      )
+                    ],
+                  )
               ),
             ),
-            Container(
-              padding: EdgeInsets.only(top: 20),
-              child: Text("${time}"),
-            )
           ],
         ),
       );

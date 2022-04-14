@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:pphelper/app/modules/bus/models/bus_product_model.dart';
 
@@ -24,12 +25,18 @@ class BusBottomView extends StatelessWidget {
             // margin: EdgeInsets.only(left: 10, right: 10),
             color: Colors.white,
             width: ScreenUtil().screenWidth,
-            height: ScreenUtil().screenHeight / 20,
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 selectAllBtn(),
-                allPriceArea(totalPrice),
-                goButton(context, length)
+                Container(
+                  child: Row(
+                    children: [
+                      allPriceArea(totalPrice),
+                      goButton(context, length)
+                    ],
+                  ),
+                )
               ],
             ),
           );
@@ -62,35 +69,29 @@ class BusBottomView extends StatelessWidget {
   // 合计区域
   Widget allPriceArea(totalPrice){
     return Container(
-      width: ScreenUtil().setWidth(430),
       alignment: Alignment.centerRight,
-      child: Column(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              Container(
-                alignment: Alignment.centerRight,
-                child: Text(
-                    '合计:',
-                    style:TextStyle(
-                        fontSize: ScreenUtil().setSp(20)
-                    )
-                ),
-              ),
-              Container(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                    '￥${totalPrice}',
-                    style:TextStyle(
-                      fontSize: ScreenUtil().setSp(36),
-                      color: Colors.red,
-                    )
-                ),
-
-              )
-            ],
+          Container(
+            child: Text(
+                '合计:',
+                style:TextStyle(
+                    fontSize: ScreenUtil().setSp(25)
+                )
+            ),
           ),
+          Container(
+            alignment: Alignment.centerLeft,
+            child: Text(
+                '￥${totalPrice}',
+                style:TextStyle(
+                  fontSize: ScreenUtil().setSp(36),
+                  color: Colors.red,
+                )
+            ),
+
+          )
         ],
       ),
     );
@@ -101,9 +102,7 @@ class BusBottomView extends StatelessWidget {
     return GetBuilder<BusController>(
         builder:(controller) {
           return Container(
-            width: ScreenUtil().setWidth(160),
-            padding: EdgeInsets.only(left: 10),
-            margin: EdgeInsets.all(5),
+            padding: EdgeInsets.only(left: 10, right: 10),
             child:InkWell(
               onTap: (){
                 // Get.toNamed(Routes.ORDER_DETAIL);
@@ -153,8 +152,20 @@ class BusBottomView extends StatelessWidget {
               Navigator.of(context).pop();
             }, style: ElevatedButton.styleFrom(primary: Colors.red),),
             ElevatedButton(child: Text('确认'),onPressed: () async{
-              await Get.find<BusController>().handleBuyProduct();
-              Navigator.of(context).pop();
+              if(dataProducts.length > 0) {
+                await Get.find<BusController>().handleBuyProduct();
+                Navigator.of(context).pop();
+              }else{
+                Fluttertoast.showToast(
+                    msg: "你没有选择任何商品~~~",
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.CENTER,
+                    timeInSecForIosWeb: 1,
+                    backgroundColor: Colors.white,
+                    textColor: Colors.red,
+                    fontSize: 16.0
+                );
+              }
             },),
           ],
         );
