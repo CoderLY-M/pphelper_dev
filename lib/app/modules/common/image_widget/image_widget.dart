@@ -49,3 +49,60 @@ class _StateImageWidget extends State<ImageWidget> {
     return _image;
   }
 }
+
+
+/**
+ * 图标
+ */
+class CategoryImageWidget extends StatefulWidget {
+  CategoryImageWidget({required this.url, this.defImagePath = "assets/1.0x/images/empty.png", required this.title});
+
+  final String url;
+  final String title;
+  final String defImagePath;
+
+  @override
+  State<StatefulWidget> createState() {
+    return _StateCategoryImageWidget();
+  }
+}
+
+class _StateCategoryImageWidget extends State<CategoryImageWidget> {
+  late Image _image;
+  @override
+  void initState() {
+    super.initState();
+    _image = Image.network(imagePreUrl + widget.url, fit: BoxFit.fill
+    );
+
+    var resolve = _image.image.resolve(ImageConfiguration.empty);
+    resolve.addListener(
+      ImageStreamListener((_, __) {
+        //加载成功
+      }, onError: (Object exception, StackTrace? stackTrace) {
+        //加载失败，加载本地图片
+        if(mounted) {
+          setState(() {
+            _image = Image.asset(
+                widget.defImagePath, fit: BoxFit.fill
+            );
+          });
+        }
+      }
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        SizedBox(
+          width: 60,
+          child: _image,
+        ),
+        Text("${widget.title}")
+      ],
+    );
+  }
+}

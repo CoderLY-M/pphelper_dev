@@ -44,12 +44,10 @@ class TopNavigatorView extends StatelessWidget {
 
       },
       child: Container(
-        width: 20,
         padding: EdgeInsets.only(left: 4,right: 4),
         child: Wrap(
           children: [
-            ImageWidget(url: item.icon),
-            Text(item.title)
+            CategoryImageWidget(url: item.icon, title: item.title,),
           ],
         ),
       ),
