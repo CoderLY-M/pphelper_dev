@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:pphelper/app/modules/common/image_widget/image_widget.dart';
 import 'package:pphelper/app/modules/message/controllers/message_controller.dart';
 import 'package:pphelper/app/routes/app_pages.dart';
 
@@ -59,9 +60,8 @@ class ChartMemberItemView extends StatelessWidget {
           ),
           leading: Container(
             width: 45, height: 45,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                image: DecorationImage(image: AssetImage("assets/1.0x/images/empty.png"))
+            child: SizedBox(
+              child: ImageWidget(url: item.avatar,),
             ),
           ),
           trailing: Text("${item.time}", style: TextStyle(color: Colors.blue),),

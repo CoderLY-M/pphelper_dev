@@ -58,7 +58,7 @@ class OrderProductItemView extends StatelessWidget {
               //图片
               InkWell(
                 onTap: () {
-                  Get.toNamed(Routes.PRODUCT_DETAIL, arguments: {"productId": item.productId});
+                  Get.toNamed(Routes.ORDER_DETAIL);
                 },
                 child: Container(
                   height: ScreenUtil().setHeight(100),
@@ -126,7 +126,7 @@ class OrderProductItemView extends StatelessWidget {
           InkWell(
             onTap: () {
               //跳转到订单详情页
-              Get.toNamed(Routes.PRODUCT_DETAIL, arguments: {"productId": item.productId});
+              Get.toNamed(Routes.ORDER_DETAIL);
             },
             child: Icon(Icons.more_horiz),
           ),

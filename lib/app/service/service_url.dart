@@ -1,8 +1,8 @@
 //根路径
 //dev地址
-const serviceUrl = "http://124.220.20.209:8899/pphelper";
+// const serviceUrl = "http://124.220.20.209:8899/pphelper";
 //pre地址
-// const serviceUrl = "http://192.168.1.108:8899/pphelper";
+const serviceUrl = "http://192.168.1.108:8899/pphelper";
 
 const imagePreUrl = serviceUrl + "/upload/images/";
 
