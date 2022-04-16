@@ -58,7 +58,7 @@ class OrderProductItemView extends StatelessWidget {
               //图片
               InkWell(
                 onTap: () {
-                  Get.toNamed(Routes.ORDER_DETAIL);
+                  Get.toNamed(Routes.ORDER_DETAIL, arguments: {"orderId": item.id});
                 },
                 child: Container(
                   height: ScreenUtil().setHeight(100),

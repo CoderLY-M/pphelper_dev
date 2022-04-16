@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:pphelper/app/modules/common/image_widget/image_widget.dart';
+import 'package:pphelper/app/modules/order_detail/controllers/order_detail_controller.dart';
 import 'package:pphelper/app/routes/app_pages.dart';
 
 
@@ -10,24 +11,29 @@ class OrderDetailItemView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        child: Column(
-          children: [
-            _orderItemTop(context),
-            _orderItemBody(context),
-            _orederItemBottom(context),
-          ],
-        )
+    return GetBuilder<OrderDetailController>(
+        builder: (controller) {
+          var orderDetail = controller.orderDetail;
+          return Container(
+              child: Column(
+                children: [
+                  _orderItemTop(context, orderDetail),
+                  _orderItemBody(context, orderDetail),
+                  _orederItemBottom(context, orderDetail),
+                ],
+              )
+          );
+        }
     );
   }
 
   //顶部
-  Widget _orderItemTop(context) {
+  Widget _orderItemTop(context, orderDetail) {
     return Container(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text("苹果12", style: TextStyle(
+          Text("${orderDetail.productName}", style: TextStyle(
             fontWeight: FontWeight.bold,
           ),),
           // _statuesView(),
@@ -37,7 +43,7 @@ class OrderDetailItemView extends StatelessWidget {
   }
 
   //主体
-  Widget _orderItemBody(context) {
+  Widget _orderItemBody(context, orderDetail) {
     return Container(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -55,7 +61,7 @@ class OrderDetailItemView extends StatelessWidget {
                   margin: EdgeInsets.all(10),
                   child: ClipRRect(
                       borderRadius: BorderRadius.circular(5),
-                      child: ImageWidget(url: "",)
+                      child: ImageWidget(url: "${orderDetail.productImage}",)
                   ),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
@@ -69,20 +75,20 @@ class OrderDetailItemView extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "2333333333333333333sssssssssssssssssssssssssssssssssssssssss",
+                      "${orderDetail.productDesc}",
                       overflow: TextOverflow.ellipsis,
                       maxLines: 3,
                     ),
                     SizedBox(height: 20,),
                     Row(
                       children: [
-                        Text("数量:5", overflow: TextOverflow.ellipsis, style: TextStyle(
+                        Text("数量:${orderDetail.productCount}", overflow: TextOverflow.ellipsis, style: TextStyle(
                           color: Colors.grey,
                           fontWeight: FontWeight.normal,
                         ),),
                         SizedBox(width: 20,),
                         //金额
-                        Text("${"￥388"}", style: TextStyle(
+                        Text("￥${orderDetail.productPrice}", style: TextStyle(
                             color: Colors.blue
                         ),),
                       ],
@@ -98,7 +104,7 @@ class OrderDetailItemView extends StatelessWidget {
   }
 
   //底部
-  Widget _orederItemBottom(context) {
+  Widget _orederItemBottom(context, orderDetail) {
     return Container(
       height: ScreenUtil().setHeight(50),
       child: Row(

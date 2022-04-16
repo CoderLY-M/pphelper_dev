@@ -1,8 +1,8 @@
 //根路径
 //dev地址
-const serviceUrl = "http://124.220.20.209:8899/pphelper";
+// const serviceUrl = "http://124.220.20.209:8899/pphelper";
 //pre地址
-// const serviceUrl = "http://192.168.1.108:8899/pphelper";
+const serviceUrl = "http://192.168.1.108:8899/pphelper";
 
 const imagePreUrl = serviceUrl + "/upload/images/";
 
@@ -28,7 +28,7 @@ var servicePath = {
   "updateMember":  serviceUrl + "/member/updateMember",  //更新用户数据
   "register":  serviceUrl + "/member/register",  //用户注册请求
   "getMemberInfo":  serviceUrl + "/member/getMemberInfo",  //请求卖家消息请求
-  "orderList":  serviceUrl + "/member/orderList",  //获取订单列表数据
+
   "messagePage": serviceUrl + "/message",
   "cartPage": serviceUrl + "/cart",
   "member": serviceUrl + "/member",
@@ -41,5 +41,9 @@ var servicePath = {
 
   "account": serviceUrl + "/memberWallet/account", //查询用户的余额
   "recharge": serviceUrl + "/memberWallet/recharge", //充值
-  "buyProducts": serviceUrl + "/memberWallet/buyProducts", //充值
+  "buyProducts": serviceUrl + "/memberWallet/buyProducts", //购买商品
+
+  "orderList":  serviceUrl + "/order/orderList",  //获取订单列表数据
+  "orderDetail":  serviceUrl + "/order/orderDetail",  //获取订单id获取订单详细数据
+
 };
