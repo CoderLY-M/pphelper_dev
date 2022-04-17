@@ -1,9 +1,14 @@
+import 'dart:collection';
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:pphelper/app/modules/settlement/models/settle_select.dart';
 import '../../../../routes/app_pages.dart';
 import '../../../../utils/member_limit.dart';
+import '../../../bus/models/bus_product_model.dart';
 import '../../controllers/product_detail_controller.dart';
 
 class ProductDetailBottomBarView extends StatelessWidget {
@@ -134,7 +139,10 @@ class ProductDetailBottomBarView extends StatelessWidget {
                             onPressed: () {
                               MemberLimit.limitNoLoginMember().then((cassAdd){
                                 if(cassAdd) {
-
+                                  List<SettleSelectModel> productList = [];
+                                  var settleSelectModel = new SettleSelectModel(id: controller.productModel.id, count: 1);
+                                  productList.add(settleSelectModel);
+                                  Get.toNamed(Routes.SETTLEMENT, arguments: {"products": productList});
                                 }else{
                                   Get.toNamed(Routes.LOGIN);
                                 }

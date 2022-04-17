@@ -4,7 +4,10 @@
 //pre地址
 const serviceUrl = "http://192.168.1.108:8899/pphelper";
 
-const imagePreUrl = serviceUrl + "/upload/images/";
+//图片地址
+const imageHeader = "http://124.220.20.209:8899/pphelper";
+
+const imagePreUrl = imageHeader + "/upload/images/";
 
 //请求地址
 var servicePath = {

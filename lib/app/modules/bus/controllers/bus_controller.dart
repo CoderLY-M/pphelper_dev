@@ -112,39 +112,6 @@ class BusController extends GetxController {
     updateBusProducts();
   }
 
-  //处理购买请求
-  handleBuyProduct() async {
-    //获取当前余额
-    var walletMoney = Get.find<WalletController>().walletMoney;
-    if(walletMoney > totalPrice) {
-      //余额充足
-      Fluttertoast.showToast(
-          msg: "请稍后，正在生成订单中.....",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.blue,
-          textColor: Colors.white,
-          fontSize: 16.0
-      );
-      //生成订单
-      List<BusProductModel> checkProducts = await getCheckedShops();
-      await Get.find<WalletController>().createOrders(checkProducts);
-      //更新余额
-      await Get.find<WalletController>().updateWalletMoney();
-    }else{
-      Fluttertoast.showToast(
-        msg: "可用余额不足",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-        fontSize: 16.0
-      );
-    }
-  }
-
   @override
   void onInit() {
     super.onInit();

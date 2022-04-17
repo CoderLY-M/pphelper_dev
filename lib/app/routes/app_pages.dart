@@ -36,6 +36,8 @@ import 'package:pphelper/app/modules/sale/bindings/sale_binding.dart';
 import 'package:pphelper/app/modules/sale/views/sale_view.dart';
 import 'package:pphelper/app/modules/seller/bindings/seller_binding.dart';
 import 'package:pphelper/app/modules/seller/views/seller_view.dart';
+import 'package:pphelper/app/modules/settlement/bindings/settlement_binding.dart';
+import 'package:pphelper/app/modules/settlement/views/settlement_view.dart';
 import 'package:pphelper/app/modules/system_info/bindings/system_info_binding.dart';
 import 'package:pphelper/app/modules/system_info/views/system_info_view.dart';
 import 'package:pphelper/app/modules/wallet/bindings/wallet_binding.dart';
@@ -161,6 +163,11 @@ class AppPages {
       name: _Paths.SYSTEM_INFO,
       page: () => SystemInfoView(),
       binding: SystemInfoBinding(),
+    ),
+    GetPage(
+      name: _Paths.SETTLEMENT,
+      page: () => SettlementView(),
+      binding: SettlementBinding(),
     ),
   ];
 }

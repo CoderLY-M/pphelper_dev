@@ -26,6 +26,7 @@ abstract class Routes {
   static const WALLET = _Paths.WALLET;
   static const RECHARGE = _Paths.RECHARGE;
   static const SYSTEM_INFO = _Paths.SYSTEM_INFO;
+  static const SETTLEMENT = _Paths.SETTLEMENT;
 }
 
 abstract class _Paths {
@@ -51,4 +52,5 @@ abstract class _Paths {
   static const WALLET = '/wallet';
   static const RECHARGE = '/recharge';
   static const SYSTEM_INFO = '/system-info';
+  static const SETTLEMENT = '/settlement';
 }

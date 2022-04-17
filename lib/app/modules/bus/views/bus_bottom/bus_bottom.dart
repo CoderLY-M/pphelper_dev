@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:pphelper/app/modules/bus/models/bus_product_model.dart';
+import 'package:pphelper/app/modules/settlement/models/settle_select.dart';
 
 import '../../../../routes/app_pages.dart';
 import '../../controllers/bus_controller.dart';
@@ -104,9 +105,27 @@ class BusBottomView extends StatelessWidget {
           return Container(
             padding: EdgeInsets.only(left: 10, right: 10),
             child:InkWell(
-              onTap: (){
-                // Get.toNamed(Routes.ORDER_DETAIL);
-                handleBuyProduct(context);
+              onTap: () async{
+                var dataProducts = await Get.find<BusController>().getCheckedShops();
+                if(dataProducts.length != 0) {
+                  //勾选商品
+                  List<SettleSelectModel> productList = [];
+                  dataProducts.forEach((element) {
+                    var settleSelectModel = new SettleSelectModel(id: element.id, count: element.count);
+                    productList.add(settleSelectModel);
+                  });
+                  Get.toNamed(Routes.SETTLEMENT, arguments: {"products": productList});
+                }else{
+                  Fluttertoast.showToast(
+                      msg: "没有选择结算的商品哦~~~~",
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.CENTER,
+                      timeInSecForIosWeb: 1,
+                      backgroundColor: Colors.white,
+                      textColor: Colors.red,
+                      fontSize: 16.0
+                  );
+                }
               },
               child: Container(
                 padding: EdgeInsets.all(10.0),
@@ -126,49 +145,5 @@ class BusBottomView extends StatelessWidget {
           );
         }
     );
-  }
-
-  //处理结算
-  handleBuyProduct(context) async{
-    //获取选择的商品
-    var dataProducts = await Get.find<BusController>().getCheckedShops();
-    var productsNames = [];
-    dataProducts.forEach((element) {
-      productsNames.add(element.productName);
-    });
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          content: Row(
-            children: [
-              Text("确定购买"),
-              Text("${productsNames.toString()}", style: TextStyle(color: Colors.red),),
-              Text("商品？"),
-            ],
-          ),
-          actions: <Widget>[
-            ElevatedButton(child: Text('取消'),onPressed: (){
-              Navigator.of(context).pop();
-            }, style: ElevatedButton.styleFrom(primary: Colors.red),),
-            ElevatedButton(child: Text('确认'),onPressed: () async{
-              if(dataProducts.length > 0) {
-                await Get.find<BusController>().handleBuyProduct();
-                Navigator.of(context).pop();
-              }else{
-                Fluttertoast.showToast(
-                    msg: "你没有选择任何商品~~~",
-                    toastLength: Toast.LENGTH_SHORT,
-                    gravity: ToastGravity.CENTER,
-                    timeInSecForIosWeb: 1,
-                    backgroundColor: Colors.white,
-                    textColor: Colors.red,
-                    fontSize: 16.0
-                );
-              }
-            },),
-          ],
-        );
-      });
   }
 }

@@ -14,14 +14,19 @@ class OrderDetailItemView extends StatelessWidget {
     return GetBuilder<OrderDetailController>(
         builder: (controller) {
           var orderDetail = controller.orderDetail;
-          return Container(
-              child: Column(
-                children: [
-                  _orderItemTop(context, orderDetail),
-                  _orderItemBody(context, orderDetail),
-                  _orederItemBottom(context, orderDetail),
-                ],
-              )
+          return InkWell(
+            onTap: (){
+              Get.toNamed(Routes.PRODUCT_DETAIL, arguments: {"productId": orderDetail.productId});
+            },
+            child: Container(
+                child: Column(
+                  children: [
+                    _orderItemTop(context, orderDetail),
+                    _orderItemBody(context, orderDetail),
+                    _orederItemBottom(context, orderDetail),
+                  ],
+                )
+            ),
           );
         }
     );
